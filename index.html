@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Restoran</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
             <img src="../img/logo.png" alt="Logo Restoran" />
+            <div class="logo-text">Menu Restoran</div>
         </div>
         <div class="nav-container">
             <ul class="nav-links">
@@ -40,39 +43,63 @@
             <div class="line"></div>
         </div>
     </nav>
+    
 
-
-
-    <div class="container">
-        <h2>3 Tempat Makan Terpopuler</h2>
-        <div class="top-items">
-            <div class="item">
-                <img src="toast-box.jpg" alt="Toast Box">
-                <div class="info">
-                    <h3>Toast Box</h3>
-                    <p>Puri Indah Mall, Lantai Ground, Jl. Puri Indah...</p>
-                    <span class="rating">4.2</span>
-                </div>
-            </div>
-            <div class="item">
-                <img src="sinilagi.jpg" alt="SiniLagi">
-                <div class="info">
-                    <h3>SiniLagi</h3>
-                    <p>Ruko Puri Kencana, Blok K7 No. 3U, Jl. Puri...</p>
-                    <span class="rating">4.2</span>
-                </div>
-            </div>
-            <div class="item">
-                <img src="dancing-goat.jpg" alt="Dancing Goat Coffee Co.">
-                <div class="info">
-                    <h3>Dancing Goat Coffee Co.</h3>
-                    <p>Ruko Grand Puri Niaga, Blok K6 No. 2P, Jl...</p>
-                    <span class="rating">4.1</span>
+    <!-- Carousel Section (Auto-Slide) -->
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="carousel-image">
+                <img class="d-block w-100" src="https://d1vbn70lmn1nqe.cloudfront.net/prod/wp-content/uploads/2024/07/16062938/Ragam-Makanan-Khas-Indonesia-yang-Lezat-dan-Kaya-Nutrisi.jpg" alt="First slide">
+                <div class="carousel-caption">
+                    <h3>Nasi goreng spesial</h3>
+                    <p>Bandung</p>
+                    <a href="#detail1" class="btn btn-primary">Lihat Detail</a>
                 </div>
             </div>
         </div>
+        <div class="carousel-item">
+            <div class="carousel-image">
+                <img class="d-block w-100" src="https://d1vbn70lmn1nqe.cloudfront.net/prod/wp-content/uploads/2024/07/16062938/Ragam-Makanan-Khas-Indonesia-yang-Lezat-dan-Kaya-Nutrisi.jpg" alt="Second slide">
+                <div class="carousel-caption">
+                    <h3>Mie ayam pangsit pedas</h3>
+                    <p>Bandung</p>
+                    <a href="#detail2" class="btn btn-primary">Lihat Detail</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="carousel-image">
+                <img class="d-block w-100" src="https://d1vbn70lmn1nqe.cloudfront.net/prod/wp-content/uploads/2024/07/16062938/Ragam-Makanan-Khas-Indonesia-yang-Lezat-dan-Kaya-Nutrisi.jpg" alt="Third slide">
+                <div class="carousel-caption">
+                    <h3>Ayam geprek jeletot</h3>
+                    <p>Jakarta</p>
+                    <a href="#detail3" class="btn btn-primary">Lihat Detail</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
 
-      
-    <script src="script.js"></script>
+<!-- Bootstrap JS and Full Version of jQuery (required for Bootstrap 4) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  <!-- Full version of jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <script src="main.js"></script>
 </body>
 </html>
