@@ -179,10 +179,7 @@ body {
         padding: 0.8rem;
         font-size: 1rem;
     }
-
-
-
-       
+      
         .nav-links.active {
             display: flex; /* Show menu */
         }
@@ -308,6 +305,7 @@ body {
     color: #aaa;
     padding: 1rem 0;
     margin-top: 1rem;
+    margin-bottom: -33px;
 }
 
 
