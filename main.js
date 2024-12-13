@@ -1,15 +1,15 @@
-// main.js
 
-document.addEventListener("DOMContentLoaded", function() {
-    const burger = document.querySelector('.burger');
-    const navContainer = document.querySelector('.nav-container');
-    
-    // Toggle the 'show' class on nav-container when burger icon is clicked
-    burger.addEventListener('click', function() {
-        navContainer.classList.toggle('show');
-    });
+
+const burger = document.querySelector('.burger');
+const navContainer = document.querySelector('.nav-container');
+
+burger.addEventListener('click', () => {
+    navContainer.classList.toggle('active'); // Toggle menu saat burger diklik
 });
-    
+
+
+
+
 
 document.addEventListener('DOMContentLoaded', async () => {
     const restoContainer = document.getElementById('resto');

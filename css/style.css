@@ -102,26 +102,28 @@ body {
     background-color: #575757;
 }
 
-/* Login Button Styling */
-.login-container {
-    position: absolute; 
-    top: 25px; 
-    right: 20px; 
-}
+/* Styling tombol login untuk mode ponsel */
+@media screen and (max-width: 768px) {
+    .login-container {
+        display: block;
+        margin: 1rem 0; /* Tambahkan spasi atas dan bawah */
+        text-align: center; /* Teks rata tengah */
+    }
 
-.login-container a {
-    color: #fff;
-    background-color: #e04e3d;
-    padding: 1rem 2rem;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    transition: background-color 0.3s ease;
-}
+    .login-container a {
+        color: #fff;
+        background-color: #e04e3d;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        transition: background-color 0.3s ease;
+        display: inline-block;
+    }
 
-.login-container a:hover {
-    background-color: #c43e2a;
-    margin-bottom: 20px;
+    .login-container a:hover {
+        background-color: #c43e2a;
+    }
 }
 
 /* Burger Menu Styling (for mobile) */
@@ -141,53 +143,48 @@ body {
     border-radius: 2px;
 }
 
-/* Responsive Styling for Mobile */
 @media screen and (max-width: 768px) {
     .nav-container {
-        display: none; 
+        display: none; /* Default tersembunyi */
+        flex-direction: column; /* Tampilkan menu secara vertikal */
+        background-color: rgba(20, 31, 31, 0.9); /* Warna latar */
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%; /* Lebar penuh */
+        z-index: 100;
+    }
+
+    .nav-container.active {
+        display: flex; /* Tampilkan menu saat aktif */
     }
 
     .burger {
-        display: flex; 
-    }
-
-    /* Show the navbar when burger menu is clicked */
-    .nav-container.show {
-        display: block; 
-    }
-
-    /* Style for dropdowns in mobile view */
-    .dropdown {
-        position: static; 
-        display: none; 
-        background-color: #444;
-        border-radius: 5px;
-        width: 100%; /* Take full width of parent */
-    }
-
-    .nav-links li:hover .dropdown {
-        display: block;
-    }
-
-    .nav-links li a {
-        font-size: 1rem;
-        padding: 1rem;
+        display: flex; /* Tampilkan burger menu */
     }
 
     .nav-links li {
-        width: 100%;
+        text-align: center; /* Teks rata tengah */
+        width: 100%; /* Lebar penuh */
     }
 
-    /* Add spacing between links in mobile view */
-    .nav-links li a {
-        padding: 0.8rem;
+    .nav-links a {
+        padding: 1rem; /* Spasi untuk menu */
+        display: block; /* Tampilan blok */
+        font-size: 1.2rem;
+    }
+
+    .dropdown {
+        position: static; /* Tidak mengambang */
+        background-color: rgba(20, 31, 31, 0.9);
+    }
+
+    .dropdown li a {
         font-size: 1rem;
+        padding: 1rem;
     }
-      
-        .nav-links.active {
-            display: flex; /* Show menu */
-        }
-    }
+}
+    
 
  /* Ensure the carousel takes full width and height of the viewport */
 #carouselExampleIndicators {
