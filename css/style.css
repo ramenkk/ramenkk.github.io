@@ -12,15 +12,19 @@ body {
 }
 
 /* Navbar Styling */
+/* Navbar Styling */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(20, 31, 31, 0.8); /* Warna #333 dengan transparansi 0.8 */
+    background-color: rgba(20, 31, 31, 0.8);
     padding: 1rem 2rem;
-    position: relative;
+    position: sticky; /* Menambahkan sticky positioning */
+    top: 0; /* Menjaga navbar tetap di atas */
+    z-index: 1000; /* Pastikan navbar berada di atas konten lainnya */
     height: 80px;
 }
+
 
 .logo {
     display: flex;
