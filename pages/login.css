@@ -47,6 +47,7 @@ form{
     transform: translate(-50%,-50%);
     top: 50%;
     left: 50%;
+
     border-radius: 10px;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255,255,255,0.1);
@@ -59,6 +60,7 @@ form *{
     letter-spacing: 0.5px;
     outline: none;
     border: none;
+   
 }
 form h3{
     font-size: 32px;
@@ -98,28 +100,6 @@ button{
     border-radius: 5px;
     cursor: pointer;
 }
-.social{
-  margin-top: 30px;
-  display: flex;
-}
-.social div{
-  background: red;
-  width: 150px;
-  border-radius: 3px;
-  padding: 5px 10px 10px 5px;
-  background-color: rgba(255,255,255,0.27);
-  color: #eaf0fb;
-  text-align: center;
-}
-.social div:hover{
-  background-color: rgba(255,255,255,0.47);
-}
-.social .fb{
-  margin-left: 25px;
-}
-.social i{
-  margin-right: 4px;
-}
 button{
     width: 100%;
     padding: 12px 0;
@@ -150,3 +130,19 @@ button:hover {
 button:active {
     transform: translateY(0);
 }
+.register-link {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #e5e5e5;
+}
+
+.register-link a {
+    color: #1845ad;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
