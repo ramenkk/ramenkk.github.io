@@ -116,12 +116,7 @@ button{
     margin-top: 20px;
 }
 
-.back-btn {
-    background-color: #ff512f;
-    color: #fff;
-    margin-top: 15px;
-    margin-bottom: 10px;
-}
+
 
 button:hover {
     transform: translateY(-2px);
