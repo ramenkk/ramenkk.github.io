@@ -215,10 +215,14 @@ body {
     height: 90vh; 
     width: 100%; 
 }
+#carouselExampleIndicators:hover {
+    animation-play-state: running !important;
+}
 
 /* Ensure images fill the carousel container */
 .carousel-inner {
     height: 100%; 
+    animation-play-state: running !important;
 }
 
 .carousel-item img {

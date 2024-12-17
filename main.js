@@ -6,6 +6,12 @@ const navContainer = document.querySelector('.nav-container');
 burger.addEventListener('click', () => {
     navContainer.classList.toggle('active'); // Toggle menu saat burger diklik
 });
+$(document).ready(function () {
+    $('#carouselExampleIndicators').carousel({
+        interval: 3000, // Interval auto slide
+        pause: false // Menonaktifkan penghentian saat hover
+    });
+});
 
 
 
