@@ -40,8 +40,9 @@ function addToCart(menu) {
         cart.push({ ...menu, jumlah: 1 });
     }
 
-    updateCart();
-    showCart(); // Tampilkan keranjang saat menambahkan item
+    console.log("Item added to cart:", cart); // Debugging: Tampilkan isi keranjang
+    updateCart(); // Perbarui tampilan keranjang
+    showCart(); // Tampilkan keranjang
 }
 
 // Perbarui jumlah item
