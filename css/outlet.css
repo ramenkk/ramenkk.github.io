@@ -1,97 +1,90 @@
-/* Reset styling */
-body, h1, p, form, input, button {
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-/* Body styling */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #b30000;
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+    background-color: #b80000; /* Warna merah khas */
 }
 
-/* Container styling */
 .container {
-    text-align: center;
-    color: #fff;
-}
-
-/* Logo styling */
-.logo img {
-    max-width: 200px;
-    margin-bottom: 20px;
-}
-
-/* Welcome box styling */
-.welcome-box {
-    background-color: #fff;
-    color: #b30000;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    width: 90%;
+    width: 100%;
     max-width: 400px;
-    margin: auto;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
 }
 
 .welcome-box h1 {
+    font-size: 1.5rem;
+    color: #b80000;
     margin-bottom: 10px;
-    font-size: 24px;
 }
 
 .welcome-box p {
-    font-size: 16px;
+    font-size: 0.9rem;
+    color: #333;
     margin-bottom: 20px;
 }
 
-/* Input group styling */
 .input-group {
-    position: relative;
+    display: flex;
+    align-items: center;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
     margin-bottom: 15px;
 }
 
 .input-group .icon {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 18px;
-    color: #aaa;
+    margin-right: 10px;
+    font-size: 1.2rem;
 }
 
 .input-group input {
-    width: 100%;
-    padding: 10px 40px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 1rem;
+    background: transparent;
 }
 
-/* Button styling */
 button {
-    background-color: #b30000;
-    color: white;
-    padding: 10px 15px;
+    width: 100%;
+    background: #b80000;
+    color: #ffffff;
+    font-size: 1rem;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    padding: 10px;
     cursor: pointer;
-    width: 100%;
+    transition: background 0.3s;
 }
 
 button:hover {
-    background-color: #a00000;
+    background: #a00000;
 }
 
-/* Error message styling */
 .error-message {
+    font-size: 0.9rem;
     color: red;
-    font-size: 14px;
     margin-top: 10px;
 }
