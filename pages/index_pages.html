@@ -38,24 +38,24 @@
         </div>
     </nav>
     
-    <section id="restolist" class="h-screen max-h-screen bg-gamenu overflow-y-auto">
-        <div class="container-lg md:py-20 py-5">
-           
-              
-              
+    <section id="restolist" class="h-screen max-h-screen bg-gray-100 overflow-y-auto">
+        <div class="container mx-auto py-10">
+            <!-- Header -->
+            <p class="flex justify-center items-center text-3xl font-bold text-gray-700">
+                <img src="../assets/icon/ui/games-logo.png" alt="" class="w-10 mr-3">
+                <span class="px-3 py-1 bg-gradient-to-r from-purple-400 to-indigo-600 text-white rounded-lg">Daftar Menu</span>
             </p>
-            <br>
-            <!-- Navigasi kategori -->
-            <div id="categoryNav" class="flex justify-center space-x-4 mb-8">
+    
+            <!-- Navigasi Kategori -->
+            <div id="categoryNav" class="flex justify-center space-x-4 my-8">
                 <button class="px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:from-blue-600 hover:to-indigo-700 transition" data-category="all">Semua</button>
                 <button class="px-6 py-2 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-lg shadow-lg hover:from-green-600 hover:to-teal-700 transition" data-category="makanan">Makanan</button>
                 <button class="px-6 py-2 bg-gradient-to-r from-red-500 to-orange-600 text-white font-semibold rounded-lg shadow-lg hover:from-red-600 hover:to-orange-700 transition" data-category="minuman">Minuman</button>
             </div>
-            
-            
-            <!-- List resto in grid -->
-            <div id="resto" class="overflow-y-auto lg:h-[45vh] md:h-[70vh] cards pt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-10 custom-scroll text-hov">
-                <!-- Data akan dimuat dengan JavaScript -->
+    
+            <!-- Grid Menu -->
+            <div id="resto" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+                <!-- Kartu akan dimuat dengan JavaScript -->
             </div>
         </div>
     </section>
