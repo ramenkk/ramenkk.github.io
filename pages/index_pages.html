@@ -38,19 +38,27 @@
         </div>
     </nav>
     
-<section id="restolist" class="h-screen max-h-screen bg-gamenu overflow-y-auto">
-    <div class="container-lg md:py-20 py-5">
-        <p class="flex text-md md:justify-start justify-center items-center md:text-5xl text-3xl header-listgame text-white border-4 border-transparent md:border-l-white md:border-r-transparent border-x-white">
-            &nbsp; <img src="../assets/icon/ui/games-logo.png" alt="" class="nav-logo w-10 md:ml-3">&nbsp; 
-            <span class="px-2 md:px-3 md:py-1 rounded-lg bg-gradient-to-r from-[#8278DA]/75 to-[#121C84]/50">DAFTAR MAKANAN</span>
-        </p>
-        <br>
-        <!-- List resto in grid -->
-        <div id="resto" class="overflow-y-auto lg:h-[45vh] md:h-[70vh] cards pt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-10 custom-scroll text-hov">
-            <!-- Data akan dimuat dengan JavaScript -->
+    <section id="restolist" class="h-screen max-h-screen bg-gamenu overflow-y-auto">
+        <div class="container-lg md:py-20 py-5">
+            <p class="flex text-md md:justify-start justify-center items-center md:text-5xl text-3xl header-listgame text-white border-4 border-transparent md:border-l-white md:border-r-transparent border-x-white">
+                &nbsp; <img src="../assets/icon/ui/games-logo.png" alt="" class="nav-logo w-10 md:ml-3">&nbsp; 
+                <span class="px-2 md:px-3 md:py-1 rounded-lg bg-gradient-to-r from-[#8278DA]/75 to-[#121C84]/50">DAFTAR MAKANAN</span>
+            </p>
+            <br>
+            <!-- Navigasi kategori -->
+            <div id="categoryNav" class="flex justify-center space-x-4 mb-5">
+                <button class="px-4 py-2 bg-blue-500 text-white rounded-lg" data-category="all">Semua</button>
+                <button class="px-4 py-2 bg-blue-500 text-white rounded-lg" data-category="makanan">Makanan</button>
+                <button class="px-4 py-2 bg-blue-500 text-white rounded-lg" data-category="minuman">Minuman</button>
+            </div>
+            
+            <!-- List resto in grid -->
+            <div id="resto" class="overflow-y-auto lg:h-[45vh] md:h-[70vh] cards pt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-10 custom-scroll text-hov">
+                <!-- Data akan dimuat dengan JavaScript -->
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+    
 
     <script src="../main.js"></script>
 </body>
