@@ -59,8 +59,25 @@
             </div>
         </div>
     </section>
+
+    <!-- Keranjang -->
+<div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white w-4/5 sm:w-1/2 p-6 rounded-lg shadow-lg relative">
+        <h2 class="text-xl font-bold mb-4">Keranjang</h2>
+        <div id="cartItems" class="space-y-4">
+            <!-- Item di keranjang akan ditambahkan dengan JavaScript -->
+        </div>
+        <div class="flex justify-between items-center mt-6">
+            <span id="totalPrice" class="text-lg font-bold">Total: Rp 0</span>
+            <button id="confirmOrder" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition">Konfirmasi Pesanan</button>
+        </div>
+        <button id="closeCart" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-lg">&times;</button>
+    </div>
+</div>
+
     
 
-    <script src="../main.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/cart.js"></script>
 </body>
 </html>
