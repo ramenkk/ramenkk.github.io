@@ -1,0 +1,97 @@
+/* Reset styling */
+body, h1, p, form, input, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #b30000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container styling */
+.container {
+    text-align: center;
+    color: #fff;
+}
+
+/* Logo styling */
+.logo img {
+    max-width: 200px;
+    margin-bottom: 20px;
+}
+
+/* Welcome box styling */
+.welcome-box {
+    background-color: #fff;
+    color: #b30000;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+}
+
+.welcome-box h1 {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.welcome-box p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Input group styling */
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-group .icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #aaa;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 40px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Button styling */
+button {
+    background-color: #b30000;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #a00000;
+}
+
+/* Error message styling */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
