@@ -63,27 +63,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Fungsi untuk merender menu
     function renderMenu(data) {
         restoContainer.innerHTML = ''; // Kosongkan kontainer
+    
         data.forEach(menuramen => {
             const card = document.createElement('div');
-            card.className = "bg-white shadow-md rounded-lg overflow-hidden";
-
+            card.className = "bg-white shadow-lg rounded-xl overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl";
+    
             const deskripsi = menuramen.deskripsi || "Tidak ada deskripsi tersedia.";
             const gambar = menuramen.gambar || 'path/to/default/image.jpg';
             const harga = menuramen.harga ? `Rp ${menuramen.harga.toLocaleString('id-ID')}` : "Harga tidak tersedia.";
-
+    
             card.innerHTML = `
-                <img src="${gambar}" alt="${menuramen.nama_menu}" class="w-full h-40 object-cover">
+                <img src="${gambar}" alt="${menuramen.nama_menu}" class="w-full h-48 object-cover">
                 <div class="p-4">
-                    <h3 class="text-lg font-bold text-gray-800">${menuramen.nama_menu}</h3>
-                    <p class="text-sm text-gray-600">Harga: ${harga}</p>
-                    <p class="text-sm text-gray-600">Deskripsi: ${deskripsi}</p>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">${menuramen.nama_menu}</h3>
+                    <p class="text-sm text-gray-600 mb-3">${deskripsi}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-bold text-blue-500">${harga}</span>
+                        <button class="px-4 py-2 bg-blue-500 text-white text-sm rounded-lg shadow-md hover:bg-blue-600 transition">Pesan</button>
+                    </div>
                 </div>
             `;
-
+    
             restoContainer.appendChild(card);
         });
     }
 });
+    
 
 
     
