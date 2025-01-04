@@ -21,7 +21,8 @@ function fetchMenuRamen(outletID) {
         })
         .then(menuData => {
             if (menuData.status === "success") {
-                renderMenu(menuData.data);
+                renderMenu(menuData.data); // Render all menu items by default
+                addCategoryFilter(menuData.data); // Add category filtering functionality
             } else {
                 throw new Error("Menu tidak ditemukan untuk outlet ini.");
             }
@@ -56,10 +57,10 @@ function renderMenu(data) {
                     <p class="text-sm text-gray-600 mb-3">${deskripsi}</p>
                     <div class="flex justify-between items-center">
                         <span class="text-lg font-bold text-blue-500">${harga}</span>
-                       <button class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm rounded-lg shadow-md hover:bg-blue-600 transition" 
-                       onclick="addToCart({ id: '${menuramen.id}', nama_menu: '${menuramen.nama_menu}', harga: ${menuramen.harga} })">
-                       Pesan
-                       </button>
+                        <button class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm rounded-lg shadow-md hover:bg-blue-600 transition" 
+                        onclick="addToCart({ id: '${menuramen.id}', nama_menu: '${menuramen.nama_menu}', harga: ${menuramen.harga} })">
+                        Pesan
+                        </button>
                     </div>
                 </div>
         `;
@@ -73,4 +74,18 @@ function renderMenu(data) {
 // Function to handle adding items to the cart (Optional, add your logic)
 function addToCart(item) {
     console.log('Item added to cart:', item);
+}
+
+// Add event listeners for category filter buttons
+function addCategoryFilter(menuData) {
+    const categoryButtons = document.querySelectorAll('[data-category]');
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const category = button.getAttribute('data-category');
+            const filteredData = category === 'all' 
+                ? menuData 
+                : menuData.filter(item => item.kategori === category);
+            renderMenu(filteredData);
+        });
+    });
 }
