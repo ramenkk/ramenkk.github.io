@@ -2,13 +2,14 @@
 let cartItems = [];
 
 // Fungsi untuk menambahkan item ke keranjang
-// Fungsi untuk menambahkan item ke keranjang
 function addToCart(item) {
     // Cek jika item sudah ada di keranjang
     const itemIndex = cartItems.findIndex(cartItem => cartItem.id === item.id);
     if (itemIndex > -1) {
-        cartItems[itemIndex].quantity += 1; // Tambah jumlah jika item sudah ada
-        cartItems[itemIndex].subtotal = cartItems[itemIndex].harga * cartItems[itemIndex].quantity; // Update subtotal
+        // Update jumlah item
+        cartItems[itemIndex].quantity += 1;
+        // Update subtotal berdasarkan jumlah baru
+        cartItems[itemIndex].subtotal = cartItems[itemIndex].harga * cartItems[itemIndex].quantity;
     } else {
         item.quantity = 1; // Set jumlah awal item ke 1
         item.subtotal = item.harga * item.quantity; // Hitung subtotal untuk item pertama
@@ -17,10 +18,10 @@ function addToCart(item) {
 
     // Update tampilan keranjang
     updateCartDisplay();
-
     // Tampilkan keranjang
     toggleCartModal(true);
 }
+
 
 
 // Fungsi untuk menambah jumlah item di keranjang
@@ -28,6 +29,7 @@ function increaseQuantity(itemId) {
     const item = cartItems.find(cartItem => cartItem.id === itemId);
     if (item) {
         item.quantity += 1;
+        item.subtotal = item.harga * item.quantity; // Update subtotal
         updateCartDisplay(); // Update tampilan keranjang setelah perubahan
     }
 }
@@ -37,15 +39,18 @@ function decreaseQuantity(itemId) {
     const item = cartItems.find(cartItem => cartItem.id === itemId);
     if (item && item.quantity > 1) {
         item.quantity -= 1;
+        item.subtotal = item.harga * item.quantity; // Update subtotal
         updateCartDisplay(); // Update tampilan keranjang setelah perubahan
     }
 }
+
 
 // Fungsi untuk menghapus item dari keranjang
 function removeItemFromCart(itemId) {
     cartItems = cartItems.filter(cartItem => cartItem.id !== itemId);
     updateCartDisplay(); // Update tampilan keranjang setelah item dihapus
 }
+
 
 
 // Fungsi untuk menghitung total harga
@@ -72,7 +77,6 @@ function updateCartDisplay() {
             cartItemDiv.innerHTML = `
                 <span>${item.nama_menu} (x${item.quantity})</span>
                 <span>Rp ${item.harga.toLocaleString('id-ID')}</span>
-                <span>Subtotal: Rp ${item.subtotal.toLocaleString('id-ID')}</span>
                 <div class="flex space-x-2">
                     <button onclick="increaseQuantity('${item.id}')" class="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600">+</button>
                     <button onclick="decreaseQuantity('${item.id}')" class="bg-yellow-500 text-white px-2 py-1 rounded-md hover:bg-yellow-600">-</button>
@@ -86,6 +90,8 @@ function updateCartDisplay() {
     // Update total harga
     totalPriceElement.textContent = `Total: Rp ${calculateTotalPrice().toLocaleString('id-ID')}`;
 }
+
+
 
 
 // Fungsi untuk toggle tampilan modal keranjang
@@ -143,4 +149,5 @@ function renderMenu(data) {
         restoContainer.appendChild(col);
     });
 }
+
 
