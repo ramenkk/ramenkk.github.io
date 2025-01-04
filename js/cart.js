@@ -16,13 +16,10 @@ function addToCart(item) {
         cartItems.push(item); // Tambah item ke keranjang
     }
 
-    // Update tampilan keranjang
     updateCartDisplay();
-    // Tampilkan keranjang
+   
     toggleCartModal(true);
 }
-
-
 
 // Fungsi untuk menambah jumlah item di keranjang
 function increaseQuantity(itemId) {
@@ -58,8 +55,6 @@ function calculateTotalPrice() {
     return cartItems.reduce((total, item) => total + item.subtotal, 0); // Jumlahkan subtotal untuk semua item
 }
 
-
-// Fungsi untuk mengupdate tampilan keranjang
 // Fungsi untuk mengupdate tampilan keranjang
 function updateCartDisplay() {
     const cartItemsContainer = document.getElementById('cartItems');
@@ -90,8 +85,6 @@ function updateCartDisplay() {
     // Update total harga
     totalPriceElement.textContent = `Total: Rp ${calculateTotalPrice().toLocaleString('id-ID')}`;
 }
-
-
 
 
 // Fungsi untuk toggle tampilan modal keranjang
