@@ -50,17 +50,18 @@ function renderMenu(data) {
 
         // Build the card content
         card.innerHTML = `
-            <img src="${gambar}" alt="${menuramen.nama_menu}" class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">${menuramen.nama_menu}</h5>
-                <p class="card-text">${deskripsi}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="text-lg font-weight-bold">${harga}</span>
-                    <button class="btn btn-primary" onclick="addToCart({ id: '${menuramen.id}', nama_menu: '${menuramen.nama_menu}', harga: ${menuramen.harga} })">
-                        Pesan
-                    </button>
+            <img src="${gambar}" alt="${menuramen.nama_menu}" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">${menuramen.nama_menu}</h3>
+                    <p class="text-sm text-gray-600 mb-3">${deskripsi}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-bold text-blue-500">${harga}</span>
+                       <button class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm rounded-lg shadow-md hover:bg-blue-600 transition" 
+                       onclick="addToCart({ id: '${menuramen.id}', nama_menu: '${menuramen.nama_menu}', harga: ${menuramen.harga} })">
+                       Pesan
+                       </button>
+                    </div>
                 </div>
-            </div>
         `;
 
         // Append the card to the column, then append the column to the container
