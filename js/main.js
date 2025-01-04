@@ -74,6 +74,7 @@ function renderMenu(data) {
 // Function to handle adding items to the cart (Optional, add your logic)
 function addToCart(item) {
     console.log('Item added to cart:', item);
+    cartItems.push(item);  // Menambahkan item ke keranjang
 }
 
 // Add event listeners for category filter buttons
@@ -90,7 +91,7 @@ function addCategoryFilter(menuData) {
     });
 }
 
-// Fungsi untuk konfirmasi pesanan
+/// Fungsi untuk konfirmasi pesanan
 document.getElementById('confirmOrder').addEventListener('click', () => {
     const customerName = document.getElementById('customerName').value.trim();
     const orderNote = document.getElementById('orderNote').value.trim();
@@ -103,12 +104,12 @@ document.getElementById('confirmOrder').addEventListener('click', () => {
     const orderData = {
         nama_pelanggan: customerName,
         catatan_pesanan: orderNote,
-        outlet_id: item.id, 
+        outlet_id: outletID, // Mengambil outlet_id dari query parameter
         daftar_menu: cartItems.map(item => ({
-            id_menu: item.id,
+            id_menu: id_menu,
             nama_menu: item.nama_menu,
             harga_satuan: item.harga_satuan,
-            jumlah: item.jumlah,
+            jumlah: item.quantity, // Menggunakan quantity dari keranjang
         })),
     };
 
@@ -116,7 +117,7 @@ document.getElementById('confirmOrder').addEventListener('click', () => {
     postPemesanan(orderData);
 });
 
-
+// Fungsi untuk mengirim data pesanan ke server
 async function postPemesanan(data) {
     try {
         const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/tambah/pesanan', {
@@ -137,7 +138,7 @@ async function postPemesanan(data) {
         // Tampilkan pesan sukses
         alert('Pesanan Anda berhasil dikirim!');
         // Reset keranjang dan form setelah sukses
-        cart = [];
+        cartItems = [];
         updateCartDisplay();
     } catch (error) {
         console.error('Error saat mengirim pesanan:', error);
