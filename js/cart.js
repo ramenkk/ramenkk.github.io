@@ -1,175 +1,147 @@
-// Inisialisasi keranjang
-let cart = [];
+// Simpan item keranjang dalam array
+let cartItems = [];
 
-// Fungsi untuk memperbarui tampilan keranjang
-function updateCart() {
-    const cartItems = document.getElementById('cartItems');
-    const totalPriceElement = document.getElementById('totalPrice');
-    cartItems.innerHTML = ''; // Kosongkan keranjang
-    let totalPrice = 0;
-
-    cart.forEach((item, index) => {
-        totalPrice += item.harga * item.jumlah;
-
-        const cartItem = document.createElement('div');
-        cartItem.className = "flex justify-between items-center border-b pb-2";
-        cartItem.innerHTML = `
-            <div>
-                <p class="font-semibold">${item.nama_menu}</p>
-                <p class="text-sm text-gray-500">Harga: Rp ${item.harga.toLocaleString('id-ID')}</p>
-                <p class="text-sm text-gray-500">Jumlah: ${item.jumlah}</p>
-            </div>
-            <div class="flex space-x-2">
-                <button class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition" onclick="updateItemQuantity(${index}, 'increase')">+</button>
-                <button class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition" onclick="updateItemQuantity(${index}, 'decrease')">-</button>
-            </div>
-        `;
-        cartItems.appendChild(cartItem);
-    });
-
-    totalPriceElement.textContent = `Total: Rp ${totalPrice.toLocaleString('id-ID')}`;
-}
-
-// Tambahkan item ke keranjang
-function addToCart(menu) {
-    const existingItemIndex = cart.findIndex(item => item.id === menu.id);
-
-    if (existingItemIndex > -1) {
-        cart[existingItemIndex].jumlah += 1;
+// Fungsi untuk menambahkan item ke keranjang
+function addToCart(item) {
+    // Cek jika item sudah ada di keranjang
+    const itemIndex = cartItems.findIndex(cartItem => cartItem.id === item.id);
+    if (itemIndex > -1) {
+        cartItems[itemIndex].quantity += 1; // Tambah jumlah jika item sudah ada
     } else {
-        cart.push({ ...menu, jumlah: 1 });
+        item.quantity = 1; // Set jumlah awal item ke 1
+        cartItems.push(item); // Tambah item ke keranjang
     }
 
-    console.log("Item added to cart:", cart); // Debugging: Tampilkan isi keranjang
-    updateCart(); // Perbarui tampilan keranjang
-    showCart(); // Tampilkan keranjang
+    // Update tampilan keranjang
+    updateCartDisplay();
+
+    // Tampilkan keranjang
+    toggleCartModal(true);
 }
 
-// Perbarui jumlah item
-function updateItemQuantity(index, action) {
-    if (action === 'increase') {
-        cart[index].jumlah += 1;
-    } else if (action === 'decrease') {
-        cart[index].jumlah -= 1;
-
-        if (cart[index].jumlah <= 0) {
-            cart.splice(index, 1); // Hapus item jika jumlah <= 0
-        }
+// Fungsi untuk menambah jumlah item di keranjang
+function increaseQuantity(itemId) {
+    const item = cartItems.find(cartItem => cartItem.id === itemId);
+    if (item) {
+        item.quantity += 1;
+        updateCartDisplay(); // Update tampilan keranjang setelah perubahan
     }
-
-    updateCart();
 }
 
-// Tampilkan dan sembunyikan keranjang
-function showCart() {
-    document.getElementById('cartModal').classList.remove('hidden');
+// Fungsi untuk mengurangi jumlah item di keranjang
+function decreaseQuantity(itemId) {
+    const item = cartItems.find(cartItem => cartItem.id === itemId);
+    if (item && item.quantity > 1) {
+        item.quantity -= 1;
+        updateCartDisplay(); // Update tampilan keranjang setelah perubahan
+    }
 }
 
-function hideCart() {
-    document.getElementById('cartModal').classList.add('hidden');
+// Fungsi untuk menghapus item dari keranjang
+function removeItemFromCart(itemId) {
+    cartItems = cartItems.filter(cartItem => cartItem.id !== itemId);
+    updateCartDisplay(); // Update tampilan keranjang setelah item dihapus
 }
 
-// Konfirmasi pesanan
-document.getElementById('confirmOrder').addEventListener('click', () => {
-    console.log('Pesanan dikonfirmasi:', cart);
+// Fungsi untuk menghitung total harga
+function calculateTotalPrice() {
+    return cartItems.reduce((total, item) => total + item.harga * item.quantity, 0);
+}
 
-    // Reset keranjang setelah konfirmasi
-    cart = [];
-    updateCart();
-    hideCart();
-});
+// Fungsi untuk mengupdate tampilan keranjang
+function updateCartDisplay() {
+    const cartItemsContainer = document.getElementById('cartItems');
+    const totalPriceElement = document.getElementById('totalPrice');
+    
+    cartItemsContainer.innerHTML = ''; // Kosongkan isi keranjang
 
-// Tutup modal keranjang
-document.getElementById('closeCart').addEventListener('click', hideCart);
-
-// Tambahkan fungsi addToCart pada tombol "Pesan"
-document.addEventListener('DOMContentLoaded', async () => {
-    const restoContainer = document.getElementById('resto');
-
-    try {
-        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/menu_ramen/byoutletid?outlet_id=6776b3258a04e2a3fbd9b0e1');
-        const data = await response.json();
-
-        data.forEach(menuramen => {
-            const card = document.createElement('div');
-            card.className = "bg-white shadow-md rounded-lg overflow-hidden";
-
-            const deskripsi = menuramen.deskripsi || "Tidak ada deskripsi tersedia.";
-            const gambar = menuramen.gambar || 'path/to/default/image.jpg';
-            const harga = menuramen.harga || 0;
-
-            card.innerHTML = `
-                <img src="${gambar}" alt="${menuramen.nama_menu}" class="w-full h-40 object-cover">
-                <div class="p-4">
-                    <h3 class="text-lg font-bold text-gray-800">${menuramen.nama_menu}</h3>
-                    <p class="text-sm text-gray-600">Harga: Rp ${harga.toLocaleString('id-ID')}</p>
-                    <p class="text-sm text-gray-600">Deskripsi: ${deskripsi}</p>
-                    <button class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm rounded-lg shadow-md hover:bg-blue-600 transition" onclick="addToCart(${JSON.stringify({
-                        id: menuramen.id,
-                        nama_menu: menuramen.nama_menu,
-                        harga: menuramen.harga
-                    })})">Pesan</button>
+    // Jika keranjang kosong, tampilkan pesan
+    if (cartItems.length === 0) {
+        cartItemsContainer.innerHTML = `<p class="text-center text-gray-500">Keranjang Anda kosong.</p>`;
+    } else {
+        cartItems.forEach(item => {
+            const cartItemDiv = document.createElement('div');
+            cartItemDiv.className = 'flex justify-between items-center border-b py-2';
+            cartItemDiv.innerHTML = `
+                <span>${item.nama_menu} (x${item.quantity})</span>
+                <span>Rp ${item.harga.toLocaleString('id-ID')}</span>
+                <div class="flex space-x-2">
+                    <button onclick="increaseQuantity('${item.id}')" class="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600">+</button>
+                    <button onclick="decreaseQuantity('${item.id}')" class="bg-yellow-500 text-white px-2 py-1 rounded-md hover:bg-yellow-600">-</button>
+                    <button onclick="removeItemFromCart('${item.id}')" class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600">Hapus</button>
                 </div>
             `;
-
-            restoContainer.appendChild(card);
+            cartItemsContainer.appendChild(cartItemDiv);
         });
-
-    } catch (error) {
-        console.error('Error:', error);
     }
+
+    // Update total harga
+    totalPriceElement.textContent = `Total: Rp ${calculateTotalPrice().toLocaleString('id-ID')}`;
+}
+
+// Fungsi untuk toggle tampilan modal keranjang
+function toggleCartModal(show) {
+    const cartModal = document.getElementById('cartModal');
+    if (show) {
+        cartModal.classList.remove('hidden');
+    } else {
+        cartModal.classList.add('hidden');
+    }
+}
+
+// Fungsi untuk menutup modal keranjang
+document.getElementById('closeCart').addEventListener('click', () => {
+    toggleCartModal(false);
 });
 
+// Fungsi untuk konfirmasi pesanan
 document.getElementById('confirmOrder').addEventListener('click', () => {
-    const customerName = document.getElementById('customerName').value.trim();
-    const orderNote = document.getElementById('orderNote').value.trim();
-
-    if (!customerName) {
-        alert('Nama pelanggan harus diisi.');
-        return;
+    if (cartItems.length === 0) {
+        alert("Keranjang Anda kosong. Tambahkan item terlebih dahulu.");
+    } else {
+        alert("Pesanan Anda telah dikonfirmasi!");
+        // Tambahkan kode untuk memproses pesanan di sini (misalnya kirim ke backend)
+        cartItems = []; // Kosongkan keranjang setelah konfirmasi
+        updateCartDisplay(); // Update tampilan keranjang
+        toggleCartModal(false); // Tutup modal
     }
-
-    const orderData = {
-        nama_pelanggan: customerName,
-        catatan_pesanan: orderNote,
-        items: cart.map(item => ({
-            id_menu: item.id,
-            nama_menu: item.nama_menu,
-            harga: item.harga,
-            jumlah: item.jumlah,
-        })),
-    };
-
-    // Panggil fungsi untuk mengirim data ke server
-    postPemesanan(orderData);
 });
 
+// Fungsi untuk merender menu
+function renderMenu(data) {
+    const restoContainer = document.getElementById('resto');
+    restoContainer.innerHTML = ''; // Clear the container before rendering new menu
 
-async function postPemesanan(data) {
-    try {
-        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/tambah/pesanan', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
+    data.forEach(menu => {
+        const col = document.createElement('div');
+        col.className = 'col-12 col-sm-6 col-md-4'; // Responsive grid columns
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+        const card = document.createElement('div');
+        card.className = 'card shadow-lg rounded-xl overflow-hidden mb-4';
 
-        const result = await response.json();
-        console.log('Pesanan berhasil dikirim:', result);
+        // Use default values for fields if they're missing
+        const deskripsi = menu.deskripsi || "Tidak ada deskripsi tersedia.";
+        const gambar = menu.gambar || 'path/to/default/image.jpg';
+        const harga = menu.harga ? `Rp ${menu.harga.toLocaleString('id-ID')}` : "Harga tidak tersedia.";
 
-        // Tampilkan pesan sukses
-        alert('Pesanan Anda berhasil dikirim!');
-        // Reset keranjang dan form setelah sukses
-        cart = [];
-        updateCart();
-        hideCart();
-    } catch (error) {
-        console.error('Error saat mengirim pesanan:', error);
-        alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
-    }
+        // Build the card content
+        card.innerHTML = `
+            <img src="${gambar}" alt="${menu.nama_menu}" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">${menu.nama_menu}</h3>
+                <p class="text-sm text-gray-600 mb-3">${deskripsi}</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-lg font-bold text-blue-500">${harga}</span>
+                    <button class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm rounded-lg shadow-md hover:bg-blue-600 transition" 
+                        onclick="addToCart({ id: '${menu.id}', nama_menu: '${menu.nama_menu}', harga: ${menu.harga} })">
+                        Pesan
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Append the card to the column, then append the column to the container
+        col.appendChild(card);
+        restoContainer.appendChild(col);
+    });
 }
