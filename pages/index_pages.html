@@ -10,7 +10,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
-
 </head>
 
 <body>
@@ -19,79 +18,33 @@
             <img src="../img/logo.png" alt="Logo Restoran" />
             <div class="logo-text">Ramen</div>
         </div>
-        
-<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">menu <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-    </svg>
-    </button>
-    
-    <!-- Dropdown menu -->
-    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-        <ul class="py-2 text-sm text-black-700 dark:text-black-200" aria-labelledby="dropdownDefaultButton">
-          <li>
-            <a href="#" class="block px-4 py-2 hover:bg-red-100 dark:hover:bg-red-600 dark:hover:text-white">About us</a>
-          </li>
-          <li>
-            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Login</a>
-          </li>
-        </ul>
-    </div>
-        <div class="burger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </div>
+        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Menu</button>
     </nav>
-    
-    <section id="restolist" class="h-screen max-h-screen bg-gray-100 overflow-y-auto">
-        <div class="container mx-auto py-10">
+
+    <!-- Daftar Menu -->
+    <section id="restolist" class="bg-gray-100 overflow-y-auto py-10">
+        <div class="container mx-auto">
             <!-- Header -->
             <p class="flex justify-center items-center text-3xl font-bold text-gray-700">
                 <img src="../assets/icon/ui/games-logo.png" alt="" class="w-10 mr-3">
                 <span class="px-3 py-1 bg-gradient-to-r from-purple-400 to-indigo-600 text-white rounded-lg">Daftar Menu</span>
             </p>
-    
+
             <!-- Navigasi Kategori -->
             <div id="categoryNav" class="flex justify-center space-x-4 my-8">
                 <button class="px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:from-blue-600 hover:to-indigo-700 transition" data-category="all">Semua</button>
                 <button class="px-6 py-2 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-lg shadow-lg hover:from-green-600 hover:to-teal-700 transition" data-category="makanan">Makanan</button>
                 <button class="px-6 py-2 bg-gradient-to-r from-red-500 to-orange-600 text-white font-semibold rounded-lg shadow-lg hover:from-red-600 hover:to-orange-700 transition" data-category="minuman">Minuman</button>
             </div>
-    
-            <!-- Grid Menu -->
-            <div id="resto" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-                <!-- Kartu akan dimuat dengan JavaScript -->
+
+            <!-- Grid Menu (Responsive) -->
+            <div id="resto" class="row">
+                <!-- Kartu menu akan dimuat dengan JavaScript -->
             </div>
         </div>
     </section>
 
-    <!-- Keranjang -->
-<div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white w-4/5 sm:w-1/2 p-6 rounded-lg shadow-lg relative">
-        <h2 class="text-xl font-bold mb-4">Keranjang</h2>
-        <div id="cartItems" class="space-y-4">
-            <!-- Item di keranjang akan ditambahkan dengan JavaScript -->
-        </div>
-        <div class="flex justify-between items-center mt-6">
-            <div class="mt-4">
-                <label for="customerName" class="block text-sm font-medium text-gray-700">Nama Pelanggan:</label>
-                <input id="customerName" type="text" class="w-full p-2 border rounded-md" placeholder="Masukkan nama Anda" required>
-            </div>
-            <div class="mt-4">
-                <label for="orderNote" class="block text-sm font-medium text-gray-700">Catatan Pesanan:</label>
-                <textarea id="orderNote" class="w-full p-2 border rounded-md" placeholder="Masukkan catatan pesanan (opsional)"></textarea>
-            </div>
-            
-            <span id="totalPrice" class="text-lg font-bold">Total: Rp 0</span>
-            <button id="confirmOrder" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition">Konfirmasi Pesanan</button>
-        </div>
-        <button id="closeCart" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-lg">&times;</button>
-    </div>
-</div>
-
-    
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
     <script src="../js/main.js"></script>
-    <script src="../js/cart.js"></script>
 </body>
 </html>
