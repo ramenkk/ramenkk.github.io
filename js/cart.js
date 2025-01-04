@@ -94,18 +94,7 @@ document.getElementById('closeCart').addEventListener('click', () => {
     toggleCartModal(false);
 });
 
-// Fungsi untuk konfirmasi pesanan
-document.getElementById('confirmOrder').addEventListener('click', () => {
-    if (cartItems.length === 0) {
-        alert("Keranjang Anda kosong. Tambahkan item terlebih dahulu.");
-    } else {
-        alert("Pesanan Anda telah dikonfirmasi!");
-        // Tambahkan kode untuk memproses pesanan di sini (misalnya kirim ke backend)
-        cartItems = []; // Kosongkan keranjang setelah konfirmasi
-        updateCartDisplay(); // Update tampilan keranjang
-        toggleCartModal(false); // Tutup modal
-    }
-});
+
 
 // Fungsi untuk merender menu
 function renderMenu(data) {
@@ -145,3 +134,4 @@ function renderMenu(data) {
         restoContainer.appendChild(col);
     });
 }
+

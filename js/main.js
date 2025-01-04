@@ -89,3 +89,58 @@ function addCategoryFilter(menuData) {
         });
     });
 }
+
+// Fungsi untuk konfirmasi pesanan
+document.getElementById('confirmOrder').addEventListener('click', () => {
+    const customerName = document.getElementById('customerName').value.trim();
+    const orderNote = document.getElementById('orderNote').value.trim();
+
+    if (!customerName) {
+        alert('Nama pelanggan harus diisi.');
+        return;
+    }
+
+    const orderData = {
+        nama_pelanggan: customerName,
+        catatan_pesanan: orderNote,
+        outlet_id: item.id, 
+        daftar_menu: cartItems.map(item => ({
+            id_menu: item.id,
+            nama_menu: item.nama_menu,
+            harga_satuan: item.harga_satuan,
+            jumlah: item.jumlah,
+        })),
+    };
+
+    // Panggil fungsi untuk mengirim data ke server
+    postPemesanan(orderData);
+});
+
+
+async function postPemesanan(data) {
+    try {
+        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/tambah/pesanan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('Pesanan berhasil dikirim:', result);
+
+        // Tampilkan pesan sukses
+        alert('Pesanan Anda berhasil dikirim!');
+        // Reset keranjang dan form setelah sukses
+        cart = [];
+        updateCartDisplay();
+    } catch (error) {
+        console.error('Error saat mengirim pesanan:', error);
+        alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
+    }
+}
