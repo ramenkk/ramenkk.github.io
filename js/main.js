@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let menuData = []; // Menyimpan data menu dari API
 
     try {
-        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/menu_ramen/byoutletid?outlet_id=6776b3258a04e2a3fbd9b0e1');
+        const response = await fetch('');
         
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);

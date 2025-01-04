@@ -123,27 +123,42 @@ document.addEventListener('DOMContentLoaded', async () => {
 document.getElementById('confirmOrder').addEventListener('click', () => {
     const customerName = document.getElementById('customerName').value.trim();
     const orderNote = document.getElementById('orderNote').value.trim();
+    const outletId = "6776b3258a04e2a3fbd9b0e1"; // ID outlet, sesuaikan jika dinamis
 
     if (!customerName) {
         alert('Nama pelanggan harus diisi.');
         return;
     }
 
+    // Hitung total harga
+    let totalHarga = 0;
+    const daftarMenu = cart.map(item => {
+        const subtotal = item.harga * item.jumlah;
+        totalHarga += subtotal;
+
+        return {
+            menu_id: item.id,
+            nama_menu: item.nama_menu,
+            jumlah: item.jumlah,
+            harga_satuan: item.harga,
+            subtotal: subtotal,
+        };
+    });
+
+    // Format data pesanan
     const orderData = {
         nama_pelanggan: customerName,
+        outlet_id: outletId,
+        daftar_menu: daftarMenu,
+        total_harga: totalHarga,
         catatan_pesanan: orderNote,
-        items: cart.map(item => ({
-            id_menu: item.id,
-            nama_menu: item.nama_menu,
-            harga: item.harga,
-            jumlah: item.jumlah,
-        })),
     };
+
+    console.log("Data pesanan yang akan dikirim:", orderData);
 
     // Panggil fungsi untuk mengirim data ke server
     postPemesanan(orderData);
 });
-
 
 async function postPemesanan(data) {
     try {
