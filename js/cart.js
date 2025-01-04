@@ -119,3 +119,33 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error:', error);
     }
 });
+
+async function postPemesanan(data) {
+    try {
+        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/tambah/pesanan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('Pesanan berhasil dikirim:', result);
+
+        // Tampilkan pesan sukses
+        alert('Pesanan Anda berhasil dikirim!');
+        // Reset keranjang dan form setelah sukses
+        cart = [];
+        updateCart();
+        hideCart();
+    } catch (error) {
+        console.error('Error saat mengirim pesanan:', error);
+        alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
+    }
+}
+
