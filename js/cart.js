@@ -2,13 +2,16 @@
 let cartItems = [];
 
 // Fungsi untuk menambahkan item ke keranjang
+// Fungsi untuk menambahkan item ke keranjang
 function addToCart(item) {
     // Cek jika item sudah ada di keranjang
     const itemIndex = cartItems.findIndex(cartItem => cartItem.id === item.id);
     if (itemIndex > -1) {
         cartItems[itemIndex].quantity += 1; // Tambah jumlah jika item sudah ada
+        cartItems[itemIndex].subtotal = cartItems[itemIndex].harga * cartItems[itemIndex].quantity; // Update subtotal
     } else {
         item.quantity = 1; // Set jumlah awal item ke 1
+        item.subtotal = item.harga * item.quantity; // Hitung subtotal untuk item pertama
         cartItems.push(item); // Tambah item ke keranjang
     }
 
@@ -18,6 +21,7 @@ function addToCart(item) {
     // Tampilkan keranjang
     toggleCartModal(true);
 }
+
 
 // Fungsi untuk menambah jumlah item di keranjang
 function increaseQuantity(itemId) {
@@ -43,11 +47,14 @@ function removeItemFromCart(itemId) {
     updateCartDisplay(); // Update tampilan keranjang setelah item dihapus
 }
 
+
 // Fungsi untuk menghitung total harga
 function calculateTotalPrice() {
-    return cartItems.reduce((total, item) => total + item.harga * item.quantity, 0);
+    return cartItems.reduce((total, item) => total + item.subtotal, 0); // Jumlahkan subtotal untuk semua item
 }
 
+
+// Fungsi untuk mengupdate tampilan keranjang
 // Fungsi untuk mengupdate tampilan keranjang
 function updateCartDisplay() {
     const cartItemsContainer = document.getElementById('cartItems');
@@ -65,6 +72,7 @@ function updateCartDisplay() {
             cartItemDiv.innerHTML = `
                 <span>${item.nama_menu} (x${item.quantity})</span>
                 <span>Rp ${item.harga.toLocaleString('id-ID')}</span>
+                <span>Subtotal: Rp ${item.subtotal.toLocaleString('id-ID')}</span>
                 <div class="flex space-x-2">
                     <button onclick="increaseQuantity('${item.id}')" class="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600">+</button>
                     <button onclick="decreaseQuantity('${item.id}')" class="bg-yellow-500 text-white px-2 py-1 rounded-md hover:bg-yellow-600">-</button>
@@ -78,6 +86,7 @@ function updateCartDisplay() {
     // Update total harga
     totalPriceElement.textContent = `Total: Rp ${calculateTotalPrice().toLocaleString('id-ID')}`;
 }
+
 
 // Fungsi untuk toggle tampilan modal keranjang
 function toggleCartModal(show) {

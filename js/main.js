@@ -58,13 +58,18 @@ function renderMenu(data) {
                     <div class="flex justify-between items-center">
                         <span class="text-lg font-bold text-blue-500">${harga}</span>
                        <button class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm rounded-lg shadow-md hover:bg-blue-600 transition" 
-                        onclick="addToCart({ id: '${menuramen.id}', nama_menu: '${menuramen.nama_menu}', harga: ${menuramen.harga} })">
+                        onclick="addToCart({ 
+                            id: '${menuramen.id}', 
+                            nama_menu: '${menuramen.nama_menu}', 
+                            harga_satuan: ${menuramen.harga}, 
+                            menu_id: '${menuramen.id}',  // Pastikan menu_id dalam format string yang valid
+                            outlet_id: '${outletID}' 
+                        })">
                            Pesan
                         </button>
                     </div>
                 </div>
         `;
-
         // Append the card to the column, then append the column to the container
         col.appendChild(card);
         restoContainer.appendChild(col);
@@ -91,7 +96,8 @@ function addCategoryFilter(menuData) {
     });
 }
 
-/// Fungsi untuk konfirmasi pesanan
+// Fungsi untuk konfirmasi pesanan
+// Fungsi untuk konfirmasi pesanan
 document.getElementById('confirmOrder').addEventListener('click', () => {
     const customerName = document.getElementById('customerName').value.trim();
     const orderNote = document.getElementById('orderNote').value.trim();
@@ -101,21 +107,30 @@ document.getElementById('confirmOrder').addEventListener('click', () => {
         return;
     }
 
+    const daftarMenu = cartItems.map(item => ({
+        menu_id: item.id,
+        nama_menu: item.nama_menu,
+        harga_satuan: item.harga,
+        jumlah: item.quantity,
+        subtotal: item.subtotal
+    }));
+
+    const totalHarga = calculateTotalPrice();  // Menghitung total harga seluruh pesanan
+
     const orderData = {
         nama_pelanggan: customerName,
         catatan_pesanan: orderNote,
-        outlet_id: outletID, // Mengambil outlet_id dari query parameter
-        daftar_menu: cartItems.map(item => ({
-            id_menu: id_menu,
-            nama_menu: item.nama_menu,
-            harga_satuan: item.harga_satuan,
-            jumlah: item.quantity, // Menggunakan quantity dari keranjang
-        })),
+        outlet_id: outletID,  // Mengambil outlet_id dari query parameter
+        daftar_menu: daftarMenu,
+        total_harga: totalHarga
     };
+
+    console.log('Data yang akan dikirim:', orderData);  // Tambahkan log untuk memeriksa data sebelum dikirim
 
     // Panggil fungsi untuk mengirim data ke server
     postPemesanan(orderData);
 });
+
 
 // Fungsi untuk mengirim data pesanan ke server
 async function postPemesanan(data) {
@@ -145,3 +160,4 @@ async function postPemesanan(data) {
         alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
     }
 }
+
