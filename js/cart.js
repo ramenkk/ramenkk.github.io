@@ -120,6 +120,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+document.getElementById('confirmOrder').addEventListener('click', () => {
+    const customerName = document.getElementById('customerName').value.trim();
+    const orderNote = document.getElementById('orderNote').value.trim();
+
+    if (!customerName) {
+        alert('Nama pelanggan harus diisi.');
+        return;
+    }
+
+    const orderData = {
+        nama_pelanggan: customerName,
+        catatan_pesanan: orderNote,
+        items: cart.map(item => ({
+            id_menu: item.id,
+            nama_menu: item.nama_menu,
+            harga: item.harga,
+            jumlah: item.jumlah,
+        })),
+    };
+
+    // Panggil fungsi untuk mengirim data ke server
+    postPemesanan(orderData);
+});
+
+
 async function postPemesanan(data) {
     try {
         const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/tambah/pesanan', {
