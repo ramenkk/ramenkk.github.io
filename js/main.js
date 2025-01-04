@@ -57,9 +57,9 @@ function renderMenu(data) {
                     <p class="text-sm text-gray-600 mb-3">${deskripsi}</p>
                     <div class="flex justify-between items-center">
                         <span class="text-lg font-bold text-blue-500">${harga}</span>
-                        <button class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm rounded-lg shadow-md hover:bg-blue-600 transition" 
+                       <button class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm rounded-lg shadow-md hover:bg-blue-600 transition" 
                         onclick="addToCart({ id: '${menuramen.id}', nama_menu: '${menuramen.nama_menu}', harga: ${menuramen.harga} })">
-                        Pesan
+                           Pesan
                         </button>
                     </div>
                 </div>
