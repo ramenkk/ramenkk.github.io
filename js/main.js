@@ -1,97 +1,75 @@
+// Ambil outlet_id dari URL query parameter
+const urlParams = new URLSearchParams(window.location.search);
+const outletID = urlParams.get('outlet_id');
 
+if (!outletID) {
+    alert("Outlet ID tidak ditemukan!");
+    window.location.href = 'index.html'; // Kembali ke halaman input kode outlet
+} else {
+    // Ambil daftar menu ramen berdasarkan outlet_id
+    fetchMenuRamen(outletID);
+}
 
-const burger = document.querySelector('.burger');
-const navContainer = document.querySelector('.nav-container');
-
-burger.addEventListener('click', () => {
-    navContainer.classList.toggle('active'); // Toggle menu saat burger diklik
-});
-$(document).ready(function () {
-    $('#carouselExampleIndicators').carousel({
-        interval: 3000, // Interval auto slide
-        pause: false // Menonaktifkan penghentian saat hover
-    });
-});
-
-
-document.addEventListener('DOMContentLoaded', async () => {
-    const restoContainer = document.getElementById('resto');
-    const categoryNav = document.getElementById('categoryNav');
-
-    let menuData = []; // Menyimpan data menu dari API
-
-    try {
-        const response = await fetch('');
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        menuData = await response.json();
-
-        if (!Array.isArray(menuData)) {
-            throw new Error('Data yang diterima bukan array');
-        }
-
-        // Tampilkan semua menu saat pertama kali dimuat
-        renderMenu(menuData);
-
-        // Tambahkan event listener untuk navigasi kategori
-        categoryNav.addEventListener('click', (e) => {
-            const category = e.target.getAttribute('data-category');
-            if (!category) return;
-
-            if (category === 'all') {
-                renderMenu(menuData); // Tampilkan semua menu
-            } else {
-                const filteredData = menuData.filter(item => item.kategori.toLowerCase() === category);
-                renderMenu(filteredData); // Tampilkan menu berdasarkan kategori
+// Fungsi untuk mengambil daftar menu ramen
+function fetchMenuRamen(outletID) {
+    fetch(`https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/menu_ramen/byoutletid?outlet_id=${outletID}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Gagal mengambil menu.");
             }
+            return response.json();
+        })
+        .then(menuData => {
+            if (menuData.status === "success") {
+                renderMenu(menuData.data);
+            } else {
+                throw new Error("Menu tidak ditemukan untuk outlet ini.");
+            }
+        })
+        .catch(error => {
+            alert(error.message);
         });
+}
 
-    } catch (error) {
-        console.error('Error:', error);
+// Fungsi untuk merender daftar menu
+function renderMenu(data) {
+    const restoContainer = document.getElementById('resto');
+    restoContainer.innerHTML = ''; // Clear the container before rendering new menu
 
-        // Tampilkan pesan error di halaman
-        restoContainer.innerHTML = `
-            <div class="text-red-600 text-center">
-                <p>Terjadi kesalahan saat memuat menu: ${error.message}</p>
+    data.forEach(menuramen => {
+        const col = document.createElement('div');
+        col.className = 'col-12 col-sm-6 col-md-4'; // Responsive grid columns
+
+        const card = document.createElement('div');
+        card.className = 'card shadow-lg rounded-xl overflow-hidden mb-4';
+
+        // Use default values for fields if they're missing
+        const deskripsi = menuramen.deskripsi || "Tidak ada deskripsi tersedia.";
+        const gambar = menuramen.gambar || 'path/to/default/image.jpg';
+        const harga = menuramen.harga ? `Rp ${menuramen.harga.toLocaleString('id-ID')}` : "Harga tidak tersedia.";
+
+        // Build the card content
+        card.innerHTML = `
+            <img src="${gambar}" alt="${menuramen.nama_menu}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">${menuramen.nama_menu}</h5>
+                <p class="card-text">${deskripsi}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-lg font-weight-bold">${harga}</span>
+                    <button class="btn btn-primary" onclick="addToCart({ id: '${menuramen.id}', nama_menu: '${menuramen.nama_menu}', harga: ${menuramen.harga} })">
+                        Pesan
+                    </button>
+                </div>
             </div>
         `;
-    }
 
-    // Fungsi untuk merender menu
-    function renderMenu(data) {
-        restoContainer.innerHTML = ''; // Kosongkan kontainer
-    
-        data.forEach(menuramen => {
-            const card = document.createElement('div');
-            card.className = "bg-white shadow-lg rounded-xl overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl";
-    
-            const deskripsi = menuramen.deskripsi || "Tidak ada deskripsi tersedia.";
-            const gambar = menuramen.gambar || 'path/to/default/image.jpg';
-            const harga = menuramen.harga ? `Rp ${menuramen.harga.toLocaleString('id-ID')}` : "Harga tidak tersedia.";
-    
-            card.innerHTML = `
-                <img src="${gambar}" alt="${menuramen.nama_menu}" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">${menuramen.nama_menu}</h3>
-                    <p class="text-sm text-gray-600 mb-3">${deskripsi}</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-lg font-bold text-blue-500">${harga}</span>
-                       <button class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm rounded-lg shadow-md hover:bg-blue-600 transition" 
-                       onclick="addToCart({ id: '${menuramen.id}', nama_menu: '${menuramen.nama_menu}', harga: ${menuramen.harga} })">
-                       Pesan
-                       </button>
-                    </div>
-                </div>
-            `;
-    
-            restoContainer.appendChild(card);
-        });
-    }
-});
-    
+        // Append the card to the column, then append the column to the container
+        col.appendChild(card);
+        restoContainer.appendChild(col);
+    });
+}
 
-
-    
+// Function to handle adding items to the cart (Optional, add your logic)
+function addToCart(item) {
+    console.log('Item added to cart:', item);
+}
