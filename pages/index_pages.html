@@ -10,7 +10,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
-    
 
 </head>
 
@@ -37,7 +36,11 @@
           </li>
         </ul>
     </div>
-    
+        <div class="burger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
     </nav>
     
     <section id="restolist" class="h-screen max-h-screen bg-gray-100 overflow-y-auto">
@@ -70,6 +73,15 @@
             <!-- Item di keranjang akan ditambahkan dengan JavaScript -->
         </div>
         <div class="flex justify-between items-center mt-6">
+            <div class="mt-4">
+                <label for="customerName" class="block text-sm font-medium text-gray-700">Nama Pelanggan:</label>
+                <input id="customerName" type="text" class="w-full p-2 border rounded-md" placeholder="Masukkan nama Anda" required>
+            </div>
+            <div class="mt-4">
+                <label for="orderNote" class="block text-sm font-medium text-gray-700">Catatan Pesanan:</label>
+                <textarea id="orderNote" class="w-full p-2 border rounded-md" placeholder="Masukkan catatan pesanan (opsional)"></textarea>
+            </div>
+            
             <span id="totalPrice" class="text-lg font-bold">Total: Rp 0</span>
             <button id="confirmOrder" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition">Konfirmasi Pesanan</button>
         </div>
