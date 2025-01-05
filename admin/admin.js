@@ -5,9 +5,9 @@ const outletID = urlParams.get('outlet_id');
 // Jika outletID tidak ditemukan, arahkan pengguna ke halaman awal
 if (!outletID) {
     alert("Outlet ID tidak ditemukan!");
-    window.location.href = 'index.html'; // Kembali ke halaman input kode outlet
+    window.location.href = 'index.html';
 } else {
-    fetchPesananByOutletID(outletID); // Panggil fungsi untuk mengambil data pesanan
+    fetchPesananByOutletID(outletID);
 }
 
 // Fungsi untuk mengambil data pesanan berdasarkan outlet_id
@@ -21,7 +21,7 @@ function fetchPesananByOutletID(outletID) {
         })
         .then(data => {
             if (data.status === "success") {
-                renderTableData(data.data); // Panggil fungsi untuk merender data ke tabel
+                renderTableData(data.data); 
             } else {
                 throw new Error("Pesanan tidak ditemukan untuk outlet ini.");
             }
@@ -34,7 +34,7 @@ function fetchPesananByOutletID(outletID) {
 // Fungsi untuk merender data pesanan ke dalam tabel HTML
 function renderTableData(data) {
     const tableBody = document.querySelector('#dataDisplayTable tbody');
-    tableBody.innerHTML = ''; // Bersihkan isi tabel sebelum render
+    tableBody.innerHTML = ''; 
 
     data.forEach(pesanan => {
         const row = document.createElement('tr');
