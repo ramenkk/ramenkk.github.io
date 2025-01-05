@@ -16,7 +16,8 @@ form.addEventListener('submit', (e) => {
   validateKodeOutlet(kodeOutlet)
     .then(outletID => {
       // After successful validation, redirect to the menu page
-      window.location.href = `../pages/index_pages.html?outlet_id=${outletID}`;
+      window.location.href = `https://github.com/ramenkk/dashboard_admin/blob/main/index.html?outlet_id=${outletID}`;
+
     })
     .catch(error => {
       showError(error.message);
