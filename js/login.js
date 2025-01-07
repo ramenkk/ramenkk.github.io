@@ -81,12 +81,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.getElementById('btnLaporan').addEventListener('click', () => {
   const outlet_id = localStorage.getItem('outlet_id');
-  window.location.href = `laporan.html?outlet_id=${outlet_id}`;
+  window.location.href = `../admin/laporan.html?outlet_id=${outlet_id}`;
 });
 
 document.getElementById('btnManajemen').addEventListener('click', () => {
   const outlet_id = localStorage.getItem('outlet_id');
-  window.location.href = `manajemen.html?outlet_id=${outlet_id}`;
+  window.location.href = `../admin/manajemen.html?outlet_id=${outlet_id}`;
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (outlet_id) {
     // Tambahkan outlet_id ke URL tujuan
-    document.getElementById('btnManajemen').href = `manajemen.html?outlet_id=${outlet_id}`;
-    document.getElementById('btnLaporan').href = `laporan.html?outlet_id=${outlet_id}`;
+    document.getElementById('btnManajemen').href = `../admin/manajemen.html?outlet_id=${outlet_id}`;
+    document.getElementById('btnLaporan').href = `../admin.laporan.html?outlet_id=${outlet_id}`;
   }
 });
