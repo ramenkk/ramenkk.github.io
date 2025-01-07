@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="./output.css" rel="stylesheet" />
     <title>Login</title>
+    <link href="./output.css" rel="stylesheet" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -27,46 +29,36 @@
           <h1 class="pt-8 pb-6 font-bold dark:text-gray-400 text-5xl text-center cursor-default">
             Login Admin
           </h1>
-          <form action="#" method="post" class="space-y-4">
-          
+          <form id="loginForm" method="post" class="space-y-4">
             <div>
-              <label for="username" class="mb-2  dark:text-gray-400 text-lg">Username</label>
+              <label for="usernameInput" class="mb-2 dark:text-gray-400 text-lg">Username</label>
               <input
-                id="username"
-                class="border p-3 dark:bg-indigo-700 dark:text-gray-300  dark:border-gray-700 shadow-md placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
-                type="username"
+                id="usernameInput"
+                name="username"
+                class="border p-3 dark:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 shadow-md placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
+                type="text"
                 placeholder="Masukan Username"
                 required
               />
+              <span id="usernameError" class="text-red-500 text-sm hidden">Username tidak boleh kosong.</span>
             </div>
             <div>
-                <label for="password" class="mb-2 dark:text-gray-400 text-lg">Password</label>
-                <input
-                  id="password"
-                  class="border p-3 shadow-md dark:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
-                  type="password"
-                  placeholder="Password"
-                  required
-                />
-              </div>
-              <div>
-                    <label for="kode_outlet" class="mb-2 dark:text-gray-400 text-lg">Kode Outlet</label>
-                    <input
-                      id="kode_outlet"
-                      class="border p-3 shadow-md white:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
-                      type="text"
-                      placeholder="masukan kode Outlet resto"
-                      required
-                    />
-                  </div>
-                  
-             
-                  <div id="errorMessage" style="display: none; color: red;"></div>
-                  
-                  <button
-                    class="bg-gradient-to-r dark:text-gray-300 from-blue-500 to-purple-500 shadow-lg mt-6 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-blue-500 transition duration-300 ease-in-out"
-                    type="submit"
-                  >
+              <label for="passwordInput" class="mb-2 dark:text-gray-400 text-lg">Password</label>
+              <input
+                id="passwordInput"
+                name="password"
+                class="border p-3 shadow-md dark:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
+                type="password"
+                placeholder="Masukan Password"
+                required
+              />
+              <span id="passwordError" class="text-red-500 text-sm hidden">Password tidak boleh kosong.</span>
+            </div>
+          
+            <button
+              class="bg-gradient-to-r dark:text-gray-300 from-blue-500 to-purple-500 shadow-lg mt-6 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-blue-500 transition duration-300 ease-in-out"
+              type="submit"
+            >
               LOG IN
             </button>
           </form>
@@ -165,7 +157,8 @@
                   Privacy Policy
                 </span>
 
-                <script src="../js/login.js"></script>
+                <script type="module" src="../js/login.js"></script>
+
               </a>
             </p>
           </div>
