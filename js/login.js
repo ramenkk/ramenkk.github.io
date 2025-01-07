@@ -76,7 +76,7 @@ form.addEventListener('submit', (e) => {
   validateKodeOutlet(kodeOutlet)
     .then(outletID => {
       // After successful validation, redirect to the menu page
-      window.location.href = `../admin/index.html?outlet_id=${outletID}`;
+      window.location.href = `../admin/admin.html?outlet_id=${outletID}`;
 
     })
     .catch(error => {
