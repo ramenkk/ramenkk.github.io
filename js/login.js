@@ -78,3 +78,23 @@ document.addEventListener('DOMContentLoaded', function () {
     login(username, password, kodeOutlet);
   });
 });
+
+document.getElementById('btnLaporan').addEventListener('click', () => {
+  const outlet_id = localStorage.getItem('outlet_id');
+  window.location.href = `laporan.html?outlet_id=${outlet_id}`;
+});
+
+document.getElementById('btnManajemen').addEventListener('click', () => {
+  const outlet_id = localStorage.getItem('outlet_id');
+  window.location.href = `manajemen.html?outlet_id=${outlet_id}`;
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const outlet_id = localStorage.getItem('outlet_id'); // Ambil outlet_id dari localStorage
+
+  if (outlet_id) {
+    // Tambahkan outlet_id ke URL tujuan
+    document.getElementById('btnManajemen').href = `manajemen.html?outlet_id=${outlet_id}`;
+    document.getElementById('btnLaporan').href = `laporan.html?outlet_id=${outlet_id}`;
+  }
+});
