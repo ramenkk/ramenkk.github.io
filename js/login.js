@@ -37,41 +37,50 @@ document.addEventListener('DOMContentLoaded', function () {
           'Authorization': `Bearer ${token}`
         }
       });
-
+  
+      // Debugging log
+      console.log('Validating Kode Outlet:', response);
+  
       if (!response.ok) {
-        throw new Error('Kode outlet tidak valid atau tidak ditemukan.');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Kode outlet tidak valid atau tidak ditemukan.');
       }
-
+  
       const data = await response.json();
-
-      if (data.status === "success") {
+      console.log('Validation Response Data:', data);
+  
+      // Pastikan respons memiliki 'outlet_id'
+      if (data.status === "success" && data.outlet_id) {
         return data.outlet_id;
       } else {
         throw new Error('Kode outlet tidak valid atau tidak ditemukan.');
       }
     } catch (error) {
+      console.error('Error during outlet validation:', error);
       throw error;
     }
   }
-
+  
+ 
   // Main login and validation process
   document.getElementById('loginForm').addEventListener('submit', async (event) => {
     event.preventDefault();
+    
     const username = document.getElementById('usernameInput').value.trim();
     const password = document.getElementById('passwordInput').value.trim();
     const kodeOutlet = document.getElementById('kode_outlet').value.trim();
     const errorMessage = document.getElementById('errorMessage');
-
+  
     errorMessage.style.display = 'none';
-
+  
     try {
       if (!kodeOutlet) {
         throw new Error('Kode Outlet tidak boleh kosong!');
       }
-
+  
       // Perform login
       const token = await login(username, password);
-
+  
       Swal.fire({
         icon: 'success',
         title: 'Login Successful',
@@ -79,10 +88,10 @@ document.addEventListener('DOMContentLoaded', function () {
         timer: 2000,
         showConfirmButton: false
       });
-
+  
       // Validate kode outlet
       const outletID = await validateKodeOutlet(kodeOutlet, token);
-
+  
       Swal.fire({
         icon: 'success',
         title: 'Validation Successful',
@@ -90,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
         timer: 2000,
         showConfirmButton: false
       });
-
+  
       // Redirect to dashboard with outlet ID
       setTimeout(() => {
         window.location.href = `../admin/admin.html?kode_outlet=${outletID}`;
@@ -106,3 +115,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+  
