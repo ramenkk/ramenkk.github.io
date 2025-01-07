@@ -30,6 +30,7 @@
             Login Admin
           </h1>
           <form id="loginForm" method="post" class="space-y-4">
+            <!-- Username -->
             <div>
               <label for="usernameInput" class="mb-2 dark:text-gray-400 text-lg">Username</label>
               <input
@@ -42,6 +43,8 @@
               />
               <span id="usernameError" class="text-red-500 text-sm hidden">Username tidak boleh kosong.</span>
             </div>
+            
+            <!-- Password -->
             <div>
               <label for="passwordInput" class="mb-2 dark:text-gray-400 text-lg">Password</label>
               <input
@@ -54,26 +57,35 @@
               />
               <span id="passwordError" class="text-red-500 text-sm hidden">Password tidak boleh kosong.</span>
             </div>
-
+          
+            <!-- Kode Outlet -->
             <div>
               <label for="kode_outlet" class="mb-2 dark:text-gray-400 text-lg">Kode Outlet</label>
               <input
                 id="kode_outlet"
-                class="border p-3 shadow-md white:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
+                name="kode_outlet"
+                class="border p-3 shadow-md dark:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
                 type="text"
-                placeholder="masukan kode Outlet resto"
+                placeholder="Masukan kode Outlet resto"
                 required
               />
-            
+              <span id="kodeOutletError" class="text-red-500 text-sm hidden">Kode Outlet tidak boleh kosong.</span>
             </div>
           
+            <!-- Submit Button -->
             <button
               class="bg-gradient-to-r dark:text-gray-300 from-blue-500 to-purple-500 shadow-lg mt-6 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-blue-500 transition duration-300 ease-in-out"
               type="submit"
             >
-              LOG IN
+              Login
             </button>
+          
+            <!-- General Error Message -->
+            <div id="errorMessage" class="text-red-500 text-sm hidden mt-2">
+              Terjadi kesalahan, silakan periksa kembali input Anda.
+            </div>
           </form>
+          
         
           <!-- Third Party Authentication Options -->
           <div
