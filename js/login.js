@@ -1,14 +1,12 @@
 import Swal from "https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js";
-import {addCSS} from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.0.9/element.js";
+import { addCSS } from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.0.9/element.js";
 
 addCSS("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
-  // Login function
-  async function login(username, password) {
+  async function login(username, password, kodeOutlet) {
     try {
+      // Step 1: Validate username and password
       const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/admin/login', {
         method: 'POST',
         headers: {
@@ -19,31 +17,45 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const data = await response.json();
 
-      if (response.status === 200) {
-        localStorage.setItem('token', data.token);
-        Swal.fire({
-          icon: 'success',
-          title: 'Login Successful',
-          text: 'Login Succes direct to dashboard.',
-          timer: 2000,
-          showConfirmButton: false
-        });
-        setTimeout(() => {
-          window.location.href = `../admin/admin.html?outlet_id=${outletID}`;
-        }, 2000);
-      } else {
+      if (response.status !== 200) {
         Swal.fire({
           icon: 'error',
           title: 'Login Failed',
           text: 'Username atau password salah!',
         });
+        return;
       }
+
+      // Step 2: Validate kode outlet
+      const validateResponse = await fetch(`https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/validate?kode_outlet=${kodeOutlet}`);
+      if (!validateResponse.ok) {
+        throw new Error("Kode outlet tidak valid atau tidak ditemukan.");
+      }
+
+      const outletData = await validateResponse.json();
+      if (outletData.status !== "success") {
+        throw new Error("Kode outlet tidak valid atau tidak ditemukan.");
+      }
+
+      // Step 3: Store token and redirect
+      localStorage.setItem('token', data.token);
+      Swal.fire({
+        icon: 'success',
+        title: 'Login Successful',
+        text: 'Login berhasil, menuju dashboard.',
+        timer: 2000,
+        showConfirmButton: false
+      });
+      setTimeout(() => {
+        window.location.href = `../admin/admin.html?outlet_id=${outletData.outlet_id}`;
+      }, 2000);
+
     } catch (error) {
       console.error('Error:', error);
       Swal.fire({
-        icon: 'warning',
+        icon: 'error',
         title: 'Login Failed',
-        text: 'Terjadi kesalahan pada server, coba lagi nanti.'
+        text: error.message,
       });
     }
   }
@@ -52,60 +64,17 @@ document.addEventListener('DOMContentLoaded', function () {
     event.preventDefault();
     const username = document.getElementById('usernameInput').value;
     const password = document.getElementById('passwordInput').value;
-    login(username, password);
+    const kodeOutlet = document.getElementById('kode_outlet').value.trim();
+
+    if (!kodeOutlet) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Validation Error',
+        text: 'Kode outlet tidak boleh kosong!',
+      });
+      return;
+    }
+
+    login(username, password, kodeOutlet);
   });
 });
-
-
-
-const form = document.querySelector('form'); 
-const kodeOutletInput = document.getElementById('kode_outlet'); 
-const errorMessage = document.getElementById('errorMessage'); 
-
-// Event listener for form submit
-form.addEventListener('submit', (e) => {
-  e.preventDefault(); // Prevent page reload
-  const kodeOutlet = kodeOutletInput.value.trim();
-
-  if (!kodeOutlet) {
-    showError("Kode Outlet tidak boleh kosong!");
-    return;
-  }
-
-  // Validate kode outlet with the API
-  validateKodeOutlet(kodeOutlet)
-    .then(outletID => {
-      // After successful validation, redirect to the menu page
-      window.location.href = `../admin/admin.html?outlet_id=${outletID}`;
-
-    })
-    .catch(error => {
-      showError(error.message);
-    });
-});
-
-function showError(message) {
-  errorMessage.textContent = message;
-  errorMessage.style.display = 'block'; // Show the error message
-}
-
-function hideError() {
-  errorMessage.style.display = 'none'; // Hide the error message
-}
-
-function validateKodeOutlet(kodeOutlet) {
-  return fetch(`https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/validate?kode_outlet=${kodeOutlet}`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Kode outlet tidak valid atau tidak ditemukan.");
-      }
-      return response.json();
-    })
-    .then(data => {
-      if (data.status === "success") {
-        return data.outlet_id; 
-      } else {
-        throw new Error("Kode outlet tidak valid atau tidak ditemukan.");
-      }
-    });
-}
