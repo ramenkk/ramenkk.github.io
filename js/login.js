@@ -1,5 +1,5 @@
 import Swal from "https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js";
-import {addCSS} from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.0.9/element.js";
+import { addCSS } from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.0.9/element.js";
 
 addCSS("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
 
@@ -7,13 +7,16 @@ document.addEventListener('DOMContentLoaded', function () {
   // Login function
   async function login(username, password) {
     try {
-      const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/admin/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ Username: username, Password: password })
-      });
+      const response = await fetch(
+        'https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/admin/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ Username: username, Password: password })
+        }
+      );
 
       const data = await response.json();
 
@@ -24,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         throw new Error('Username atau password salah!');
       }
     } catch (error) {
+      console.error('Login error:', error);
       throw new Error('Terjadi kesalahan pada server, coba lagi nanti.');
     }
   }
@@ -31,25 +35,27 @@ document.addEventListener('DOMContentLoaded', function () {
   // Validate kode outlet function
   async function validateKodeOutlet(kodeOutlet, token) {
     try {
-      const response = await fetch(`https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/validate?kode_outlet=${kodeOutlet}`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`
+      const response = await fetch(
+        `https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/validate?kode_outlet=${kodeOutlet}`,
+        {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         }
-      });
-  
-      // Debugging log
-      console.log('Validating Kode Outlet:', response);
-  
+      );
+
+      console.log('Validating Kode Outlet:', kodeOutlet, response);
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Kode outlet tidak valid atau tidak ditemukan.');
       }
-  
+
       const data = await response.json();
       console.log('Validation Response Data:', data);
-  
-      // Pastikan respons memiliki 'outlet_id'
+
+      // Ensure the response contains 'outlet_id'
       if (data.status === "success" && data.outlet_id) {
         return data.outlet_id;
       } else {
@@ -60,27 +66,26 @@ document.addEventListener('DOMContentLoaded', function () {
       throw error;
     }
   }
-  
- 
+
   // Main login and validation process
   document.getElementById('loginForm').addEventListener('submit', async (event) => {
     event.preventDefault();
-    
+
     const username = document.getElementById('usernameInput').value.trim();
     const password = document.getElementById('passwordInput').value.trim();
     const kodeOutlet = document.getElementById('kode_outlet').value.trim();
     const errorMessage = document.getElementById('errorMessage');
-  
+
     errorMessage.style.display = 'none';
-  
+
     try {
       if (!kodeOutlet) {
         throw new Error('Kode Outlet tidak boleh kosong!');
       }
-  
+
       // Perform login
       const token = await login(username, password);
-  
+
       Swal.fire({
         icon: 'success',
         title: 'Login Successful',
@@ -88,10 +93,10 @@ document.addEventListener('DOMContentLoaded', function () {
         timer: 2000,
         showConfirmButton: false
       });
-  
+
       // Validate kode outlet
       const outletID = await validateKodeOutlet(kodeOutlet, token);
-  
+
       Swal.fire({
         icon: 'success',
         title: 'Validation Successful',
@@ -99,9 +104,10 @@ document.addEventListener('DOMContentLoaded', function () {
         timer: 2000,
         showConfirmButton: false
       });
-  
+
       // Redirect to dashboard with outlet ID
       setTimeout(() => {
+        console.log('Redirecting to:', `../admin/admin.html?kode_outlet=${outletID}`);
         window.location.href = `../admin/admin.html?kode_outlet=${outletID}`;
       }, 2000);
     } catch (error) {
@@ -115,4 +121,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
-  
