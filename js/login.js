@@ -3,8 +3,6 @@ import {addCSS} from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.0.9/element.js";
 
 addCSS("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
   // Login function
   async function login(username, password) {
@@ -21,91 +19,90 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (response.status === 200) {
         localStorage.setItem('token', data.token);
-        Swal.fire({
-          icon: 'success',
-          title: 'Login Successful',
-          text: 'Login Succes direct to dashboard.',
-          timer: 2000,
-          showConfirmButton: false
-        });
-        setTimeout(() => {
-          window.location.href = '../admin/admin.html';
-        }, 2000);
+        return data.token; // Return token for further use
       } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Login Failed',
-          text: 'Username atau password salah!',
-        });
+        throw new Error('Username atau password salah!');
       }
     } catch (error) {
-      console.error('Error:', error);
-      Swal.fire({
-        icon: 'warning',
-        title: 'Login Failed',
-        text: 'Terjadi kesalahan pada server, coba lagi nanti.'
-      });
+      throw new Error('Terjadi kesalahan pada server, coba lagi nanti.');
     }
   }
 
-  document.getElementById('loginForm').addEventListener('submit', (event) => {
-    event.preventDefault();
-    const username = document.getElementById('usernameInput').value;
-    const password = document.getElementById('passwordInput').value;
-    login(username, password);
-  });
-});
+  // Validate kode outlet function
+  async function validateKodeOutlet(kodeOutlet, token) {
+    try {
+      const response = await fetch(`https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/validate?kode_outlet=${kodeOutlet}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
+      if (!response.ok) {
+        throw new Error('Kode outlet tidak valid atau tidak ditemukan.');
+      }
 
+      const data = await response.json();
 
-const form = document.querySelector('form'); // Select the form element
-const kodeOutletInput = document.getElementById('kode_outlet'); // Corrected to match the HTML id
-const errorMessage = document.getElementById('errorMessage'); // Corrected the element for error message
-
-// Event listener for form submit
-form.addEventListener('submit', (e) => {
-  e.preventDefault(); // Prevent page reload
-  const kodeOutlet = kodeOutletInput.value.trim();
-
-  if (!kodeOutlet) {
-    showError("Kode Outlet tidak boleh kosong!");
-    return;
+      if (data.status === "success") {
+        return data.outlet_id;
+      } else {
+        throw new Error('Kode outlet tidak valid atau tidak ditemukan.');
+      }
+    } catch (error) {
+      throw error;
+    }
   }
 
-  // Validate kode outlet with the API
-  validateKodeOutlet(kodeOutlet)
-    .then(outletID => {
-      // After successful validation, redirect to the menu page
-      window.location.href = `../admin/admin.html?outlet_id=${outletID}`;
+  // Main login and validation process
+  document.getElementById('loginForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const username = document.getElementById('usernameInput').value.trim();
+    const password = document.getElementById('passwordInput').value.trim();
+    const kodeOutlet = document.getElementById('kode_outlet').value.trim();
+    const errorMessage = document.getElementById('errorMessage');
 
-    })
-    .catch(error => {
-      showError(error.message);
-    });
+    errorMessage.style.display = 'none';
+
+    try {
+      if (!kodeOutlet) {
+        throw new Error('Kode Outlet tidak boleh kosong!');
+      }
+
+      // Perform login
+      const token = await login(username, password);
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Login Successful',
+        text: 'Login berhasil, memvalidasi kode outlet...',
+        timer: 2000,
+        showConfirmButton: false
+      });
+
+      // Validate kode outlet
+      const outletID = await validateKodeOutlet(kodeOutlet, token);
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Validation Successful',
+        text: 'Kode Outlet valid, mengarahkan ke dashboard...',
+        timer: 2000,
+        showConfirmButton: false
+      });
+
+      // Redirect to dashboard with outlet ID
+      setTimeout(() => {
+        window.location.href = `../admin/admin.html?kode_outlet=${outletID}`;
+      }, 2000);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error.message,
+      });
+      errorMessage.textContent = error.message;
+      errorMessage.style.display = 'block';
+    }
+  });
 });
-
-function showError(message) {
-  errorMessage.textContent = message;
-  errorMessage.style.display = 'block'; // Show the error message
-}
-
-function hideError() {
-  errorMessage.style.display = 'none'; // Hide the error message
-}
-
-function validateKodeOutlet(kodeOutlet) {
-  return fetch(`https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/validate?kode_outlet=${kodeOutlet}`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Kode outlet tidak valid atau tidak ditemukan.");
-      }
-      return response.json();
-    })
-    .then(data => {
-      if (data.status === "success") {
-        return data.outlet_id; 
-      } else {
-        throw new Error("Kode outlet tidak valid atau tidak ditemukan.");
-      }
-    });
-}
