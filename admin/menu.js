@@ -46,7 +46,21 @@ async function fetchMenuData() {
 // Call the function to fetch data when the page loads
 window.onload = fetchMenuData;
 
-  async function updateMenuItem(event) {
+function populateUpdateForm(menuItem) {
+    // Populate the form fields with the selected menu item's data
+    document.getElementById('namaMenu').value = menuItem.nama_menu;
+    document.getElementById('harga').value = menuItem.harga;
+    document.getElementById('deskripsi').value = menuItem.deskripsi;
+    document.getElementById('gambar').value = menuItem.gambar;
+    document.getElementById('kategori').value = menuItem.kategori;
+    document.getElementById('available').value = menuItem.available ? 'true' : 'false';
+    
+    // Store the menu item ID in the form for later use (e.g., for PUT request)
+    document.getElementById('updateMenuForm').setAttribute('data-id', menuItem._id);
+}
+
+
+async function updateMenuItem(event) {
     event.preventDefault(); // Prevent the default form submission
 
     // Get the values from the form
