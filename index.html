@@ -41,28 +41,28 @@
            
         </nav>
 
- <!-- Daftar Menu -->
-<section id="restolist" class="bg-gray-100 overflow-y-auto py-10">
-    <div class="container mx-auto pt-20">
-        <!-- Header -->
-        <p class="flex justify-center items-center text-3xl font-bold text-gray-700">
-            <span class="px-3 py-1 bg-gradient-to-r from-purple-400 to-indigo-600 text-white rounded-lg">Daftar Menu</span>
-        </p>
+    <!-- Daftar Menu -->
+    <section id="restolist" class="bg-gray-100 overflow-y-auto py-10">
+        <div class="container mx-auto pt-20">
+            <!-- Header -->
+            <p class="flex justify-center items-center text-3xl font-bold text-gray-700">
+              
+                <span class="px-3 py-1 bg-gradient-to-r from-purple-400 to-indigo-600 text-white rounded-lg">Daftar Menu</span>
+            </p>
 
-        <!-- Navigasi Kategori -->
-        <div id="categoryNav" class="flex justify-center space-x-4 my-8">
-            <button class="px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:from-blue-600 hover:to-indigo-700 transition" data-category="all">Semua</button>
-            <button class="px-6 py-2 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-lg shadow-lg hover:from-green-600 hover:to-teal-700 transition" data-category="makanan">Makanan</button>
-            <button class="px-6 py-2 bg-gradient-to-r from-red-500 to-orange-600 text-white font-semibold rounded-lg shadow-lg hover:from-red-600 hover:to-orange-700 transition" data-category="minuman">Minuman</button>
+            <!-- Navigasi Kategori -->
+            <div id="categoryNav" class="flex justify-center space-x-4 my-8">
+                <button class="px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:from-blue-600 hover:to-indigo-700 transition" data-category="all">Semua</button>
+                <button class="px-6 py-2 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-lg shadow-lg hover:from-green-600 hover:to-teal-700 transition" data-category="makanan">Makanan</button>
+                <button class="px-6 py-2 bg-gradient-to-r from-red-500 to-orange-600 text-white font-semibold rounded-lg shadow-lg hover:from-red-600 hover:to-orange-700 transition" data-category="minuman">Minuman</button>
+            </div>
+
+            <!-- Grid Menu (Responsive) -->
+            <div id="resto" class="row">
+                <!-- Kartu menu akan dimuat dengan JavaScript -->
+            </div>
         </div>
-
-        <!-- Grid Menu (Responsive) -->
-        <div id="resto" class="row">
-            <!-- Kartu menu akan dimuat dengan JavaScript -->
-        </div>
-    </div>
-</section>
-
+    </section>
 
     <!-- Keranjang -->
     <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50">
@@ -81,6 +81,21 @@
                 <label for="catatan_pesanan" class="block text-sm font-semibold text-gray-700">Catatan Pesanan</label>
                 <textarea id="orderNote" class="w-full mt-2 p-2 border border-gray-300 rounded-md" placeholder="Masukkan catatan pesanan (optional)"></textarea>
             </div>
+            <!-- Pilihan Nomor Kursi -->
+            <div class="mt-4">
+                <label for="nomor_kursi" class="block text-sm font-semibold text-gray-700">Nomor Kursi</label>
+                <select id="seatNumber" class="w-full mt-2 p-2 border border-gray-300 rounded-md">
+                    <option value="" disabled selected>Pilih nomor kursi</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
+            </div>
             <div class="flex justify-between items-center mt-6">
                 <span id="totalPrice" class="text-lg font-bold">Total: Rp 0</span>
                 <button id="confirmOrder" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition">Konfirmasi Pesanan</button>
@@ -88,8 +103,6 @@
             <button id="closeCart" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-lg">&times;</button>
         </div>
     </div>
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
     <script src="js/main.js"></script>
