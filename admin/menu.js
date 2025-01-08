@@ -1,20 +1,36 @@
+// Function to show the modal
+function showModal(menuItem) {
+    // Populate the form fields with the selected menu item's data
+    document.getElementById('namaMenu').value = menuItem.nama_menu;
+    document.getElementById('harga').value = menuItem.harga;
+    document.getElementById('deskripsi').value = menuItem.deskripsi;
+    document.getElementById('gambar').value = menuItem.gambar;
+    document.getElementById('kategori').value = menuItem.kategori;
+    document.getElementById('available').value = menuItem.available ? 'true' : 'false';
+    
+    // Store the menu item ID in the form for later use
+    document.getElementById('updateMenuForm').setAttribute('data-id', menuItem._id);
+
+    // Show the modal
+    document.getElementById('updateMenuModal').style.display = 'flex';
+}
+
+// Function to close the modal
+document.getElementById('closeModalButton').addEventListener('click', function () {
+    document.getElementById('updateMenuModal').style.display = 'none';
+});
+
 // Modify the table row creation to include a unique ID for the Edit button
 async function fetchMenuData() {
     try {
         const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/menu_ramen');
         const data = await response.json();
 
-        // Get the table body element
         const tableBody = document.querySelector('#dataDisplayTable tbody');
-
-        // Clear existing rows if any
         tableBody.innerHTML = '';
 
-        // Loop through the data and append rows to the table
         data.forEach(item => {
             const row = document.createElement('tr');
-            
-            // Add a unique ID to the Edit button
             const editButtonId = `edit-btn-${item._id}`;
 
             row.innerHTML = `
@@ -29,13 +45,11 @@ async function fetchMenuData() {
                     <button class="px-4 py-2 text-white bg-red-500 hover:bg-red-700 ml-2 rounded">Delete</button>
                 </td>
             `;
-            
-            // Append the row to the table body
             tableBody.appendChild(row);
 
-            // Add an event listener to the Edit button
+            // Add event listener for the Edit button
             document.getElementById(editButtonId).addEventListener('click', function () {
-                populateUpdateForm(item);
+                showModal(item);
             });
         });
     } catch (error) {
@@ -43,27 +57,12 @@ async function fetchMenuData() {
     }
 }
 
-// Call the function to fetch data when the page loads
+// Call fetchMenuData when the page loads
 window.onload = fetchMenuData;
 
-function populateUpdateForm(menuItem) {
-    // Populate the form fields with the selected menu item's data
-    document.getElementById('namaMenu').value = menuItem.nama_menu;
-    document.getElementById('harga').value = menuItem.harga;
-    document.getElementById('deskripsi').value = menuItem.deskripsi;
-    document.getElementById('gambar').value = menuItem.gambar;
-    document.getElementById('kategori').value = menuItem.kategori;
-    document.getElementById('available').value = menuItem.available ? 'true' : 'false';
-    
-    // Store the menu item ID in the form for later use (e.g., for PUT request)
-    document.getElementById('updateMenuForm').setAttribute('data-id', menuItem._id);
-}
-
-
 async function updateMenuItem(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault();
 
-    // Get the values from the form
     const formData = new FormData(event.target);
     const menuData = {
         ID: formData.get('id'),
@@ -72,11 +71,10 @@ async function updateMenuItem(event) {
         Deskripsi: formData.get('deskripsi'),
         Gambar: formData.get('gambar'),
         Kategori: formData.get('kategori'),
-        Available: formData.get('available') === 'true' // Convert to boolean
+        Available: formData.get('available') === 'true'
     };
 
     try {
-        // Send PUT request to the API
         const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/ubah/menu_ramen', {
             method: 'PUT',
             headers: {
@@ -89,8 +87,8 @@ async function updateMenuItem(event) {
 
         if (response.ok) {
             alert('Menu updated successfully!');
-            // Optionally refresh the table after updating
-            fetchMenuData();
+            fetchMenuData(); // Refresh the table
+            document.getElementById('updateMenuModal').style.display = 'none'; // Hide the modal
         } else {
             alert(`Error: ${result.response}`);
         }

@@ -1,0 +1,29 @@
+#updateMenuModal {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Darkened background */
+    z-index: 1000; /* Ensure it's on top of other elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#updateMenuForm {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+#closeModalButton {
+    background: none;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
