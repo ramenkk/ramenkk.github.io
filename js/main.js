@@ -90,6 +90,7 @@ function addCategoryFilter(menuData) {
 document.getElementById('confirmOrder').addEventListener('click', () => {
     const customerName = document.getElementById('customerName').value.trim();
     const orderNote = document.getElementById('orderNote').value.trim();
+    const seatNumber = document.getElementById('seatNumber').value.trim();
 
     if (!customerName) {
         alert('Nama pelanggan harus diisi.');
@@ -109,6 +110,7 @@ document.getElementById('confirmOrder').addEventListener('click', () => {
     const orderData = {
         nama_pelanggan: customerName,
         catatan_pesanan: orderNote,
+        nomor_meja: seatNumber,  // Ganti dengan nomor_meja, sesuai dengan yang digunakan di backend
         daftar_menu: daftarMenu,
         total_harga: totalHarga
     };
