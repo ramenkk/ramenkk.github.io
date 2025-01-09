@@ -42,12 +42,7 @@ async function fetchMenuData() {
 window.onload = fetchMenuData;
 
 // Function to show the update form and populate it with the selected menu item data
-// Function to show the update form and populate it with the selected menu item data
-// Function to show the update form and populate it with the selected menu item data
-// Function to show the update form and populate it with the selected menu item data
-// Function to show the update form and populate it with the selected menu item data
-// Function to show the update form and populate it with the selected menu item data
-// Function to show the update form and populate it with the selected menu item data
+
 function showUpdateForm(menuItem) {
     console.log('Edit button clicked, menu item:', menuItem); // Log the selected item
 

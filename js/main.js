@@ -90,12 +90,19 @@ function addCategoryFilter(menuData) {
 document.getElementById('confirmOrder').addEventListener('click', () => {
     const customerName = document.getElementById('customerName').value.trim();
     const orderNote = document.getElementById('orderNote').value.trim();
-    const seatNumber = document.getElementById('seatNumber').value.trim();
+    let seatNumber = document.getElementById('seatNumber').value.trim();
 
     if (!customerName) {
         alert('Nama pelanggan harus diisi.');
         return;
     }
+
+    if (seatNumber === '' || isNaN(seatNumber)) {
+        alert('Nomor meja harus diisi dengan angka.');
+        return;
+    }
+
+    seatNumber = parseInt(seatNumber, 10);  // Mengonversi seatNumber ke tipe integer
 
     const daftarMenu = cartItems.map(item => ({
         menu_id: item.id,
@@ -110,7 +117,7 @@ document.getElementById('confirmOrder').addEventListener('click', () => {
     const orderData = {
         nama_pelanggan: customerName,
         catatan_pesanan: orderNote,
-        nomor_meja: seatNumber,  // Ganti dengan nomor_meja, sesuai dengan yang digunakan di backend
+        nomor_meja: seatNumber,  // Pastikan seatNumber sudah berupa integer
         daftar_menu: daftarMenu,
         total_harga: totalHarga
     };
@@ -120,7 +127,6 @@ document.getElementById('confirmOrder').addEventListener('click', () => {
     // Panggil fungsi untuk mengirim data ke server
     postPemesanan(orderData);
 });
-
 
 // Fungsi untuk mengirim data pesanan ke server
 async function postPemesanan(data) {
