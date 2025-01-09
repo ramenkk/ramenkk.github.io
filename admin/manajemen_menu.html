@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard manajemen menu</title>
     <link rel="shortcut icon" type="image/x-icon" href="../../img/logo.png" />
+    <link href="../css/menu.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=REM">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -189,56 +190,43 @@
                                         <tbody class="bg-white">
                                             
                                         </tbody>
-                                    </table>     
+                                    </table>    
+
+                               <!-- Hidden Update Form -->
+<!-- Hidden Update Form -->
+<!-- Overlay background -->
+<!-- Overlay for dimming the background when form is open -->
+<div id="overlay" class="overlay" style="display: none;"></div>
+<div id="updateFormContainer" class="update-form-container hidden">
+    <form id="updateForm">
+        <label for="namaMenu">Nama Menu</label>
+        <input type="text" id="namaMenu" name="namaMenu" required>
+
+        <label for="harga">Harga</label>
+        <input type="number" id="harga" name="harga" required>
+
+        <label for="deskripsi">Deskripsi</label>
+        <input type="text" id="deskripsi" name="deskripsi" required>
+
+        <label for="gambar">Gambar URL</label>
+        <input type="text" id="gambar" name="gambar" required>
+
+        <label for="kategori">Kategori</label>
+        <input type="text" id="kategori" name="kategori" required>
+
+        <label for="available">Available</label>
+        <select id="available" name="available" required>
+            <option value="true">Available</option>
+            <option value="false">Not Available</option>
+        </select>
+
+        <button type="submit">Update</button>
+    </form>
+</div>
+
+
                                     
-                                    <div class="container px-6 py-8 mx-auto">
-                                        <h3 class="text-3xl font-medium text-gray-700">Update Menu</h3>
                                     
-                                        <!-- Modal for Update Form (Initially Hidden) -->
-                                        <div id="updateMenuModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex justify-center items-center">
-                                            <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-                                                <form id="updateMenuForm">
-                                                    <input type="hidden" name="id" id="menuId" />
-                                                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-                                                        <div>
-                                                            <label for="namaMenu" class="text-sm font-medium text-gray-700">Nama Menu</label>
-                                                            <input type="text" id="namaMenu" name="namaMenu" class="mt-1 block w-full px-4 py-2 text-sm border rounded-md" required />
-                                                        </div>
-                                                        <div>
-                                                            <label for="harga" class="text-sm font-medium text-gray-700">Harga</label>
-                                                            <input type="number" id="harga" name="harga" class="mt-1 block w-full px-4 py-2 text-sm border rounded-md" required />
-                                                        </div>
-                                                        <div>
-                                                            <label for="deskripsi" class="text-sm font-medium text-gray-700">Deskripsi</label>
-                                                            <textarea id="deskripsi" name="deskripsi" class="mt-1 block w-full px-4 py-2 text-sm border rounded-md" required></textarea>
-                                                        </div>
-                                                        <div>
-                                                            <label for="gambar" class="text-sm font-medium text-gray-700">Gambar URL</label>
-                                                            <input type="url" id="gambar" name="gambar" class="mt-1 block w-full px-4 py-2 text-sm border rounded-md" required />
-                                                        </div>
-                                                        <div>
-                                                            <label for="kategori" class="text-sm font-medium text-gray-700">Kategori</label>
-                                                            <input type="text" id="kategori" name="kategori" class="mt-1 block w-full px-4 py-2 text-sm border rounded-md" required />
-                                                        </div>
-                                                        <div>
-                                                            <label for="available" class="text-sm font-medium text-gray-700">Available</label>
-                                                            <select id="available" name="available" class="mt-1 block w-full px-4 py-2 text-sm border rounded-md" required>
-                                                                <option value="true">Available</option>
-                                                                <option value="false">Not Available</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mt-8 flex justify-end">
-                                                        <button type="submit" class="px-6 py-2 text-white bg-blue-500 hover:bg-blue-700 rounded">Update Menu</button>
-                                                    </div>
-                                                </form>
-                                                <!-- Close Button -->
-                                                <button id="closeModalButton" class="absolute top-2 right-2 text-white bg-gray-700 hover:bg-gray-900 p-2 rounded-full">
-                                                    X
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
                                     
                                     
                                     
