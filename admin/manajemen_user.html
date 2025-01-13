@@ -58,12 +58,15 @@
                     </a>
 
                     <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25">
-                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <!-- Icon User -->
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z">
-                            </path>
-                        </svg>
+                                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM6 18c0-3 6-3 6-3s6 0 6 3v2H6v-2z" />
+                            <!-- Wrench Icon -->
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M16.94 13.06a2 2 0 010-2.83l1.06-1.06a2 2 0 10-2.83-2.83L14.11 7.4a2 2 0 01-2.83 0L11 6.12a2 2 0 010-2.83L12.06 2M12.06 2L14 4m0 0l.94.94a2 2 0 012.83 2.83l-1.06 1.06a2 2 0 000 2.83M12.06 2l-2.06 2.06a2 2 0 010 2.83L11 7.4a2 2 0 010 2.83L9.94 11M12.06 2v4" />
+                          </svg>
+                          
         
                         <span class="mx-3">Manajemen user</span>
                     </a>
@@ -125,7 +128,7 @@
                 </header>
                 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                     <div class="container px-6 py-8 mx-auto">
-                        <h3 class="text-3xl font-medium text-gray-700">Add Warung Location</h3>    
+                        <h3 class="text-3xl font-medium text-gray-700">Kelola user</h3>    
                         <div class="flex flex-col mt-3">
                             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                                 <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 sm:rounded-lg">
@@ -135,64 +138,7 @@
                                                 <label for="long" class="block text-sm font-medium text-gray-700">Longitude</label>
                                                 <input disabled required type="text" id="long" class="mt-1 block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm focus:font-semibold" placeholder="Longitude akan terisi otomatis">
                                             </div>
-                                            <div class="mb-2 flex-grow">
-                                                <label for="lat" class="block text-sm font-medium text-gray-700">Latitude</label>
-                                                <input disabled required type="text" id="lat" class="mt-1 block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm focus:font-semibold" placeholder="Latitude akan terisi otomatis">
-                                            </div>
-                                        </div>
-                                        <div class="md:flex xs:flex-col gap-4">
-                                            <div class="mb-2 flex-grow">
-                                                <label for="province" class="block text-sm font-medium text-gray-700">Provinsi</label>
-                                                <input disabled required type="text" id="province" class="mt-1 block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm focus:font-semibold" placeholder="Provinsi akan terisi otomatis">
-                                            </div>
-                                            <div class="mb-2 flex-grow">
-                                                <label for="district" class="block text-sm font-medium text-gray-700">Daerah</label>
-                                                <input disabled required type="text" id="district" class="mt-1 block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm focus:font-semibold" placeholder="Daerah akan terisi otomatis">
-                                            </div>
-                                        </div>
-                                        <div class="md:flex xs:flex-col gap-4">
-                                            <div class="mb-2 flex-grow">
-                                                <label for="sub_district" class="block text-sm font-medium text-gray-700">Kecamatan</label>
-                                                <input disabled required type="text" id="sub_district" class="mt-1 block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm focus:font-semibold" placeholder="Kecamatan akan terisi otomatis">
-                                            </div>
-                                            <div class="mb-2 flex-grow">
-                                                <label for="village" class="block text-sm font-medium text-gray-700">Desa</label>
-                                                <input disabled required type="text" id="village" class="mt-1 block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm focus:font-semibold" placeholder="Desa akan terisi otomatis">
-                                            </div>
-                                        </div>
-                                        <div class="md:flex xs:flex-col gap-4">
-                                            <div class="mb-2 flex-grow">
-                                                <label for="nama_tempat" class="block text-sm font-medium text-gray-700">Nama-Tempat</label>
-                                                <input type="text" id="nama_tempat" class="mt-1 block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm focus:font-semibold">
-                                            </div>
-                                            <div class="mb-2 flex-grow">
-                                                <label for="lokasi" class="block text-sm font-medium text-gray-700">Lokasi</label>
-                                                <input type="text" id="lokasi" class="mt-1 block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm focus:font-semibold">
-                                            </div>
-                                        </div>
-                                        <div class="md:flex xs:flex-col gap-4">
-                                            <div class="mb-2 md:w-1/2 xs:flex-grow">
-                                                <label for="gambar" class="block text-sm font-medium text-gray-700">Gambar</label>
-                                                <input type="file" id="gambar" class="mt-1 block w-full h-10 px-3 py-2 border bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm focus:font-semibold" name="gambar" accept="image/*" required>
-                                            </div>
-                                            <div class="mb-2 md:w-1/2 xs:flex-grow">
-                                                <label for="metode_pembayaran" class="block text-sm font-medium text-gray-700">metode_pembayaran</label>
-                                                <input type="text" id="metode_pembayaran" class="mt-1 block w-full h-10 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm focus:font-semibold">
-                                            </div>
-                                        </div>                                        
-                                        <div class="mt-4 p-2 border-2 border-violet-500 rounded-md shadow-lg">
-                                            <div id="map" class="w-full h-64"></div>
-                                        </div>                            
-                                        <div class="flex items-center justify-end gap-3">
-                                            <button id="submitButton" class="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                                                Generate Locaion
-                                            </button>
-                                            <button id="saveButton" class="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                                                Save Warung
-                                            </button>
-                                            <button id="cancelButton" class="bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                                                Cancel
-                                            </button>
+                                        <!-- isi konten -->
                                         </div>
                                     </form>
                                 </div>
@@ -204,9 +150,7 @@
         </div>
     </div>
     <!-- <script type ="module" src="index.js"></script> -->
-    <script type="module" src="adminform_map.js"></script>
-    <script type="module" src="submitform_warung.js"></script>>
-    <script type="module" src="login_wa.js"></script>
-    <script type="module" src="logout_wa.js"></script>
+    <script type="module" src="logout.js"></script>
+    <script type="module" src="dashboard.js"></script>
 </body>
 </html>
