@@ -186,7 +186,7 @@
                                                 <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Deskripsi</th>
                                                 <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Gambar</th>
                                                 <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">kategori</th>
-                                                <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase border-b border-gray-200">Available</th>
+                                              
                                                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-50">Aksi</th>
                                             </tr>
                                         </thead>
@@ -244,38 +244,44 @@
                                       </div>
                                       
 
-                               <!-- Hidden Update Form -->
-<!-- Hidden Update Form -->
-<!-- Overlay background -->
-<!-- Overlay for dimming the background when form is open -->
-<div id="overlay" class="overlay" style="display: none;"></div>
-<div id="updateFormContainer" class="update-form-container hidden">
-    <form id="updateForm">
-        <label for="namaMenu">Nama Menu</label>
-        <input type="text" id="namaMenu" name="namaMenu" required>
+                                      <!-- update -->
 
-        <label for="harga">Harga</label>
-        <input type="number" id="harga" name="harga" required>
+                                      <div id="updateModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center z-50">
+                                        <div class="bg-white p-6 rounded shadow-lg w-96">
+                                            <h2 class="text-xl font-bold mb-4">Update Menu</h2>
+                                            <form id="updateForm">
+                                                <input type="hidden" id="updateId">
+                                                <div class="mb-4">
+                                                    <label class="block text-sm font-medium text-gray-700">Nama Menu</label>
+                                                    <input type="text" id="updateNamaMenu" class="block w-full p-2 border border-gray-300 rounded">
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label class="block text-sm font-medium text-gray-700">Harga</label>
+                                                    <input type="number" id="updateHarga" class="block w-full p-2 border border-gray-300 rounded">
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label class="block text-sm font-medium text-gray-700">Deskripsi</label>
+                                                    <textarea id="updateDeskripsi" class="block w-full p-2 border border-gray-300 rounded"></textarea>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label class="block text-sm font-medium text-gray-700">Gambar</label>
+                                                    <input type="text" id="updateGambar" class="block w-full p-2 border border-gray-300 rounded">
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label class="block text-sm font-medium text-gray-700">Kategori</label>
+                                                    <input type="text" id="updateKategori" class="block w-full p-2 border border-gray-300 rounded">
+                                                </div>
+                        
+                                                <div class="flex justify-end">
+                                                    <button type="button" onclick="closeUpdateModal()" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded mr-2">Cancel</button>
+                                                    <button type="submit" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded">Update</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    
 
-        <label for="deskripsi">Deskripsi</label>
-        <input type="text" id="deskripsi" name="deskripsi" required>
-
-        <label for="gambar">Gambar URL</label>
-        <input type="text" id="gambar" name="gambar" required>
-
-        <label for="kategori">Kategori</label>
-        <input type="text" id="kategori" name="kategori" required>
-
-        <label for="available">Available</label>
-        <select id="available" name="available" required>
-            <option value="true">Available</option>
-            <option value="false">Not Available</option>
-        </select>
-
-        <button type="submit">Update</button>
-    </form>
-</div>
-
+                          
 
                                     
                                     
@@ -292,6 +298,6 @@
     </div>
     <script src="menu.js"></script>
     <script type="module" src="logout.js"></script>
-    <script type="module" src="dashboard.js"></script>
+    <script type="module" src="dashboa.js"></script>
 </body>
 </html>

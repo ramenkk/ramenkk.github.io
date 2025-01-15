@@ -13,208 +13,90 @@ async function fetchMenuData() {
 
         // Loop through the data and append rows to the table
         data.forEach(item => {
-            console.log('Item in table:', item); // Log setiap item dalam tabel
+            console.log('Item id:', item.id); // Pastikan id ada di data
+            // Pastikan ID ada dan benar
             const row = document.createElement('tr');
-            
             row.innerHTML = `
                 <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">${item.nama_menu}</td>
                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">${item.harga}</td>
                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">${item.deskripsi}</td>
                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap"><img src="${item.gambar}" alt="Image" class="w-16 h-16 object-cover"></td>
                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">${item.kategori}</td>
-                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">${item.available}</td>
                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                    <button onclick='showUpdateForm(${JSON.stringify(item)})' class="px-4 py-2 text-white bg-blue-500 hover:bg-blue-700 rounded">Edit</button>
-                    <button class="px-4 py-2 text-white bg-red-500 hover:bg-red-700 ml-2 rounded">Delete</button>
+                    <button class="px-4 py-2 text-white bg-blue-500 hover:bg-blue-700 rounded" onclick="updateMenu('${item.id}', '${item.nama_menu}', ${item.harga}, '${item.deskripsi}', '${item.gambar}', '${item.kategori}')">Update</button>
+                    <button class="px-4 py-2 text-white bg-red-500 hover:bg-red-700 ml-2 rounded" onclick="deleteMenu('${item.id}')">Delete</button>
                 </td>
             `;
-            
-            // Append the row to the table body
             tableBody.appendChild(row);
         });
+        
+        
     } catch (error) {
         console.error('Error fetching menu data:', error);
     }
 }
-
 
 // Call the function to fetch data when the page loads
 window.onload = fetchMenuData;
 
-// Function to show the update form and populate it with the selected menu item data
+async function updateMenu(id, nama_menu, harga, deskripsi, gambar, kategori) {
+    // Pastikan ID yang dikirim adalah string yang sesuai dengan MongoDB ObjectID
+    document.getElementById('updateId').value = id;
+    document.getElementById('updateNamaMenu').value = nama_menu;
+    document.getElementById('updateHarga').value = harga;
+    document.getElementById('updateDeskripsi').value = deskripsi;
+    document.getElementById('updateGambar').value = gambar;
+    document.getElementById('updateKategori').value = kategori;
 
-function showUpdateForm(menuItem) {
-    console.log('Edit button clicked, menu item:', menuItem); // Log the selected item
-
-    if (!menuItem.id) {  // Check for the 'id' property instead of '_id'
-        console.error('Menu ID is missing');
-        alert('Menu ID is missing. Cannot update.');
-        return;
-    }
-
-    // Show the overlay and the update form container
-    document.getElementById('overlay').style.display = 'block';
-    document.getElementById('updateFormContainer').classList.remove('hidden');
-    document.getElementById('updateFormContainer').style.display = 'block';
-
-    // Populate the form fields with the data from the selected menu item
-    document.getElementById('namaMenu').value = menuItem.nama_menu;
-    document.getElementById('harga').value = menuItem.harga;
-    document.getElementById('deskripsi').value = menuItem.deskripsi;
-    document.getElementById('gambar').value = menuItem.gambar;
-    document.getElementById('kategori').value = menuItem.kategori;
-    document.getElementById('available').value = menuItem.available.toString();  // Convert to string for select input
-
-    // Set up the form submission handler
-    document.getElementById('updateForm').onsubmit = function(event) {
-        event.preventDefault(); // Prevent the default form submit
-        updateMenu(menuItem.id); // Pass the correct menu ID here
-    };
+    // Tampilkan modal
+    document.getElementById('updateModal').classList.remove('hidden');
 }
 
-// Function to send the updated data to the API
-async function updateMenu(menuId) {
-    // Ensure that menuId is not undefined
-    if (!menuId) {
-        console.error('Menu ID is missing');
-        alert('Invalid Menu ID');
-        return;
-    }
+function closeUpdateModal() {
+    document.getElementById('updateModal').classList.add('hidden');
+}
 
-    const updatedMenu = {
-        ID: menuId,  // Send the menu ID
-        nama_menu: document.getElementById('namaMenu').value,
-        harga: parseFloat(document.getElementById('harga').value),
-        deskripsi: document.getElementById('deskripsi').value,
-        gambar: document.getElementById('gambar').value,
-        kategori: document.getElementById('kategori').value,
-        available: document.getElementById('available').value === 'true' // Convert to boolean
+document.getElementById('updateForm').addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const id = document.getElementById('updateId').value; // Ambil ID dari form
+    const nama_menu = document.getElementById('updateNamaMenu').value;
+    const harga = parseFloat(document.getElementById('updateHarga').value);
+    const deskripsi = document.getElementById('updateDeskripsi').value;
+    const gambar = document.getElementById('updateGambar').value;
+    const kategori = document.getElementById('updateKategori').value;
+
+    // Pastikan kita mengirimkan ID yang benar
+    const updatedData = {
+        id: id,         // Menggunakan id sesuai dengan MongoDB
+        nama_menu,
+        harga,
+        deskripsi,
+        gambar,
+        kategori,
     };
 
-    // Log the updated menu data and URL
-    console.log('Updated menu data:', updatedMenu);
-    const updateUrl = `https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/ubah/menu_ramen/${menuId}`;
-    console.log('API Request URL:', updateUrl); // Log the full URL to ensure menuId is correct
-
     try {
-        const response = await fetch(updateUrl, {
+        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/ubah/menu_ramen', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(updatedMenu),
+            body: JSON.stringify(updatedData),
         });
 
-        const data = await response.json();
-        console.log('API Response:', data); // Log the response for debugging
-
-        if (response.ok) {
-            // If the update was successful, hide the form and reload the table
-            alert('Menu updated successfully!');
-            closeUpdateForm(); // Close the form and overlay
-            fetchMenuData(); // Reload the menu data (table)
-        } else {
-            alert('Error updating menu: ' + data.message);
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            console.error('Update failed:', errorMessage);
+            alert('Failed to update menu: ' + errorMessage);
+            return;
         }
+
+        alert('Menu updated successfully');
+        closeUpdateModal();
+        fetchMenuData(); // Refresh data di tabel
     } catch (error) {
-        console.error('Error:', error);
-        alert('Failed to update menu');
+        console.error('Error updating menu:', error);
+        alert('Error updating menu');
     }
-}
-// Function to close the update form (hides the form and overlay)
-function closeUpdateForm() {
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('updateFormContainer').style.display = 'none';
-}
-
-
-// Function to send the updated data to the API
-// Function to send the updated data to the API
-async function updateMenu(menuId) {
-    if (!menuId) {
-        console.error('Menu ID is missing');
-        alert('Invalid Menu ID');
-        return;
-    }
-
-    const updatedMenu = {
-        id: menuId,  // Correctly set the menu ID
-        nama_menu: document.getElementById('namaMenu').value,
-        harga: parseFloat(document.getElementById('harga').value),
-        deskripsi: document.getElementById('deskripsi').value,
-        gambar: document.getElementById('gambar').value,
-        kategori: document.getElementById('kategori').value,
-        available: document.getElementById('available').value === 'true' // Convert to boolean
-    };
-
-    const updateUrl = `https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/ubah/menu_ramen/${menuId}`;
-    console.log('API Request URL:', updateUrl);  // Log the full URL to ensure it's correct
-
-    try {
-        const response = await fetch(updateUrl, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedMenu),
-        });
-
-        const data = await response.json();
-        console.log('API Response:', data);
-
-        if (response.ok) {
-            alert('Menu updated successfully!');
-            closeUpdateForm(); // Close the form
-            fetchMenuData(); // Reload the menu table
-        } else {
-            alert('Error updating menu: ' + data.response); // Display the error message
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Failed to update menu');
-    }
-}
-
-
-
-// Function to fetch the menu data and display it in the table
-async function fetchMenuData() {
-    try {
-        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/menu_ramen');
-        const data = await response.json();
-
-        console.log('Fetched data:', data); // Log the fetched data
-
-        // Get the table body element
-        const tableBody = document.querySelector('#dataDisplayTable tbody');
-
-        // Clear existing rows if any
-        tableBody.innerHTML = '';
-
-        // Loop through the data and append rows to the table
-        data.forEach(item => {
-            const row = document.createElement('tr');
-            
-            row.innerHTML = `
-                <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">${item.nama_menu}</td>
-                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">${item.harga}</td>
-                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">${item.deskripsi}</td>
-                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap"><img src="${item.gambar}" alt="Image" class="w-16 h-16 object-cover"></td>
-                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">${item.kategori}</td>
-                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">${item.available}</td>
-                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                    <button onclick='showUpdateForm(${JSON.stringify(item)})' class="px-4 py-2 text-white bg-blue-500 hover:bg-blue-700 rounded">Edit</button>
-                    <button class="px-4 py-2 text-white bg-red-500 hover:bg-red-700 ml-2 rounded">Delete</button>
-                </td>
-            `;
-            
-            // Append the row to the table body
-            tableBody.appendChild(row);
-        });
-    } catch (error) {
-        console.error('Error fetching menu data:', error);
-    }
-}
-
-// Fetch the data when the page loads
-window.onload = fetchMenuData;
+});
