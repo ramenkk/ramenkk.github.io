@@ -198,48 +198,40 @@
                                     <div class="mt-8">
                                         <h2 class="text-lg font-medium text-gray-700">Tambah Data</h2>
                                         <form id="addDataForm" class="mt-4">
-                                          <!-- Nama -->
-                                          <div class="mb-4">
-                                            <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
-                                            <input type="text" id="nama" name="nama" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                                          </div>
-                                          <!-- Harga -->
-                                          <div class="mb-4">
-                                            <label for="harga" class="block text-sm font-medium text-gray-700">Harga</label>
-                                            <input type="number" id="harga" name="harga" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                                          </div>
-                                          <!-- Deskripsi -->
-                                          <div class="mb-4">
-                                            <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi</label>
-                                            <textarea id="deskripsi" name="deskripsi" rows="3" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required></textarea>
-                                          </div>
-                                          <!-- Gambar -->
-                                          <div class="mb-4">
-                                            <label for="gambar" class="block text-sm font-medium text-gray-700">Gambar</label>
-                                            <input type="file" id="gambar" name="gambar" accept="image/*" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                          </div>
-                                          <!-- Kategori -->
-                                          <div class="mb-4">
-                                            <label for="kategori" class="block text-sm font-medium text-gray-700">Kategori</label>
-                                            <select id="kategori" name="kategori" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                                              <option value="">Pilih Kategori</option>
-                                              <option value="Kategori 1">makanan</option>
-                                              <option value="Kategori 2">minuman</option>
-                                          
-                                            </select>
-                                          </div>
-                                          <!-- Available -->
-                                          <div class="mb-4">
-                                            <label for="available" class="block text-sm font-medium text-gray-700">Available</label>
-                                            <select id="available" name="available" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                                              <option value="true">Yes</option>
-                                              <option value="false">No</option>
-                                            </select>
-                                          </div>
-                                          <!-- Submit Button -->
-                                          <div class="flex justify-end">
-                                            <button type="submit" class="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Tambah</button>
-                                          </div>
+                                            <!-- Nama -->
+                                            <div class="mb-4">
+                                                <label for="nama_menu" class="block text-sm font-medium text-gray-700">Nama Menu</label>
+                                                <input type="text" id="nama_menu" name="nama_menu" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                                            </div>
+                                            <!-- Harga -->
+                                            <div class="mb-4">
+                                                <label for="harga" class="block text-sm font-medium text-gray-700">Harga</label>
+                                                <input type="number" id="harga" name="harga" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                                            </div>
+                                            <!-- Deskripsi -->
+                                            <div class="mb-4">
+                                                <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi</label>
+                                                <textarea id="deskripsi" name="deskripsi" rows="3" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required></textarea>
+                                            </div>
+                                            <!-- Gambar URL -->
+                                            <div class="mb-4">
+                                                <label for="gambar" class="block text-sm font-medium text-gray-700">URL Gambar</label>
+                                                <input type="text" id="gambar" name="gambar" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Masukkan URL gambar" required>
+                                            </div>
+                                            <!-- Kategori -->
+                                            <div class="mb-4">
+                                                <label for="kategori" class="block text-sm font-medium text-gray-700">Kategori</label>
+                                                <select id="kategori" name="kategori" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                                                    <option value="">Pilih Kategori</option>
+                                                    <option value="makanan">Makanan</option>
+                                                    <option value="minuman">Minuman</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <!-- Submit Button -->
+                                            <div class="flex justify-end">
+                                                <button type="submit" class="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Tambah</button>
+                                            </div>
                                         </form>
                                       </div>
                                       

@@ -5,16 +5,13 @@ async function fetchMenuData() {
 
         console.log('Fetched data:', data); 
 
-        // Get the table body element
         const tableBody = document.querySelector('#dataDisplayTable tbody');
 
-        // Clear existing rows if any
         tableBody.innerHTML = '';
 
-        // Loop through the data and append rows to the table
         data.forEach(item => {
-            console.log('Item id:', item.id); // Pastikan id ada di data
-            // Pastikan ID ada dan benar
+            console.log('Item id:', item.id); 
+    
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">${item.nama_menu}</td>
@@ -36,11 +33,10 @@ async function fetchMenuData() {
     }
 }
 
-// Call the function to fetch data when the page loads
 window.onload = fetchMenuData;
 
 async function updateMenu(id, nama_menu, harga, deskripsi, gambar, kategori) {
-    // Pastikan ID yang dikirim adalah string yang sesuai dengan MongoDB ObjectID
+
     document.getElementById('updateId').value = id;
     document.getElementById('updateNamaMenu').value = nama_menu;
     document.getElementById('updateHarga').value = harga;
@@ -100,3 +96,87 @@ document.getElementById('updateForm').addEventListener('submit', async function 
         alert('Error updating menu');
     }
 });
+
+
+
+// delete menu ramen
+async function deleteMenu(id) {
+    if (!id) {
+        alert('Invalid ID');
+        return; 
+    }
+
+    const confirmed = confirm('Are you sure you want to delete this menu item?');
+    if (!confirmed) {
+        return; 
+    }
+
+    try {
+        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/hapus/menu_ramen', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id }), 
+        });
+
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            console.error('Delete failed:', errorMessage);
+            alert('Failed to delete menu: ' + errorMessage);
+            return;
+        }
+
+        alert('Menu deleted successfully');
+        fetchMenuData();
+    } catch (error) {
+        console.error('Error deleting menu:', error);
+        alert('Error deleting menu');
+    }
+}
+
+
+document.getElementById('addDataForm').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Mencegah pengiriman form secara default
+
+    // Ambil data dari form
+    const nama_menu = document.getElementById('nama_menu').value;
+    const harga = parseFloat(document.getElementById('harga').value);
+    const deskripsi = document.getElementById('deskripsi').value;
+    const gambar = document.getElementById('gambar').value; // URL gambar
+    const kategori = document.getElementById('kategori').value;
+
+    // Siapkan data untuk dikirim
+    const postData = {
+        nama_menu,
+        harga,
+        deskripsi,
+        gambar, 
+        kategori,
+    };
+
+    try {
+        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/tambah/menu_ramen', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', 
+            },
+            body: JSON.stringify(postData), 
+        });
+
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            console.error('Error:', errorMessage);
+            alert('Failed to add data: ' + errorMessage);
+            return;
+        }
+
+        alert('Data added successfully!');
+
+        document.getElementById('addDataForm').reset();
+    } catch (error) {
+        console.error('Error submitting data:', error);
+        alert('Error submitting data');
+    }
+});
+
