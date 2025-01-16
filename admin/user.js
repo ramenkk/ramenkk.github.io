@@ -42,3 +42,51 @@ addUserForm.addEventListener('submit', async (event) => {
     console.error('Fetch Error:', error);
   }
 });
+
+
+// get data aktivitas login
+
+document.addEventListener("DOMContentLoaded", () => {
+    const activityTable = document.getElementById("activityTable");
+  
+    // Fungsi untuk mengambil data aktivitas
+    async function fetchActivities() {
+      try {
+        const response = await fetch(
+          "https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/activity"
+        );
+  
+        if (!response.ok) {
+          throw new Error("Failed to fetch activities");
+        }
+  
+        const activities = await response.json();
+  
+
+        activityTable.innerHTML = "";
+ 
+        activities.forEach((activity) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td class="border px-4 py-2">${activity.username || "-"}</td>
+            <td class="border px-4 py-2">${new Date(activity.timestamp).toLocaleString() || "-"}</td>
+            <td class="border px-4 py-2">${activity.activity || "-"}</td>
+          `;
+          activityTable.appendChild(row);
+        });
+      } catch (error) {
+        console.error("Error fetching activities:", error);
+        activityTable.innerHTML = `
+          <tr>
+            <td colspan="4" class="border px-4 py-2 text-center text-red-500">
+              Gagal memuat data aktivitas
+            </td>
+          </tr>
+        `;
+      }
+    }
+  
+    // Panggil fungsi fetch saat halaman dimuat
+    fetchActivities();
+  });
+  
