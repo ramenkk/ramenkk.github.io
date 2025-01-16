@@ -128,17 +128,62 @@
                 </header>
                 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                     <div class="container px-6 py-8 mx-auto">
-                        <h3 class="text-3xl font-medium text-gray-700">Kelola user</h3>    
+                        <h3 class="text-3xl font-medium text-gray-700">Kelola User</h3>
                         <div class="flex flex-col mt-3">
                             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                                 <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 sm:rounded-lg">
-                                    <form class="px-2 pt-6 pb-8 mb-4 md:pr-22 flex flex-col gap-y-3" id="locationForm">
+                                    <form class="px-2 pt-6 pb-8 mb-4 md:pr-22 flex flex-col gap-y-3" id="addUserForm">
                                         <div class="md:flex xs:flex-col gap-4">
-                                            <div class="mb-2 flex-grow">
-                                                <label for="long" class="block text-sm font-medium text-gray-700">Longitude</label>
-                                                <input disabled required type="text" id="long" class="mt-1 block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm focus:font-semibold" placeholder="Longitude akan terisi otomatis">
+                                            <!-- Username -->
+                                            <div class="flex flex-col w-full">
+                                                <label for="username" class="text-gray-700 font-medium mb-2">Username</label>
+                                                <input
+                                                    type="text"
+                                                    id="username"
+                                                    name="username"
+                                                    placeholder="Masukkan Username"
+                                                    required
+                                                    class="w-full p-3 border rounded-lg shadow-sm focus:ring focus:ring-blue-300 focus:outline-none"
+                                                />
                                             </div>
-                                        <!-- isi konten -->
+                                            
+                                            <!-- Password -->
+                                            <div class="flex flex-col w-full">
+                                                <label for="password" class="text-gray-700 font-medium mb-2">Password</label>
+                                                <input
+                                                    type="password"
+                                                    id="password"
+                                                    name="password"
+                                                    placeholder="Masukkan Password"
+                                                    required
+                                                    class="w-full p-3 border rounded-lg shadow-sm focus:ring focus:ring-blue-300 focus:outline-none"
+                                                />
+                                            </div>
+                                            
+                                            <!-- Role -->
+                                            <div class="flex flex-col w-full">
+                                                <label for="role" class="text-gray-700 font-medium mb-2">Role</label>
+                                                <select
+                                                    id="role"
+                                                    name="role"
+                                                    required
+                                                    class="w-full p-3 border rounded-lg shadow-sm focus:ring focus:ring-blue-300 focus:outline-none"
+                                                >
+                                                    <option value="" disabled selected>Pilih Role</option>
+                                                    <option value="admin">Admin</option>
+                                                    <option value="kasir">Kasir</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                
+                                        <!-- Submit Button -->
+                                        <div class="flex justify-end mt-4">
+                                            <button
+                                                type="submit"
+                                                class="px-6 py-3 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 transition duration-300"
+                                            >
+                                                Simpan
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
@@ -146,6 +191,7 @@
                         </div>
                     </div>
                 </main>
+                
             </div>
         </div>
     </div>
