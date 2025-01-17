@@ -1,3 +1,9 @@
+import Swal from "https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js";
+import {addCSS} from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.0.9/element.js";
+
+// Menambahkan CSS SweetAlert
+addCSS("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
+
 async function fetchMenuData() {
     try {
         const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/menu_ramen');
@@ -84,16 +90,34 @@ document.getElementById('updateForm').addEventListener('submit', async function 
         if (!response.ok) {
             const errorMessage = await response.text();
             console.error('Update failed:', errorMessage);
-            alert('Failed to update menu: ' + errorMessage);
+            Swal.fire({
+                icon: 'error',
+                title: 'error update menu',
+                text: 'Error to update menu ramen.',
+                timer: 2000,
+                showConfirmButton: false,
+              });
             return;
         }
 
-        alert('Menu updated successfully');
+        Swal.fire({
+            icon: 'success',
+            title: 'Update succesful',
+            text: 'Updating menu ramen succesful...',
+            timer: 2000,
+            showConfirmButton: false,
+          });
         closeUpdateModal();
         fetchMenuData(); // Refresh data di tabel
     } catch (error) {
         console.error('Error updating menu:', error);
-        alert('Error updating menu');
+        Swal.fire({
+            icon: 'error',
+            title: 'error update menu',
+            text: 'Error to update menu ramen.',
+            timer: 2000,
+            showConfirmButton: false,
+          });
     }
 });
 
@@ -123,15 +147,33 @@ async function deleteMenu(id) {
         if (!response.ok) {
             const errorMessage = await response.text();
             console.error('Delete failed:', errorMessage);
-            alert('Failed to delete menu: ' + errorMessage);
+            Swal.fire({
+                icon: 'error',
+                title: 'error delete menu',
+                text: 'Error to delete menu ramen.',
+                timer: 2000,
+                showConfirmButton: false,
+              });
             return;
         }
 
-        alert('Menu deleted successfully');
+        Swal.fire({
+            icon: 'success',
+            title: 'Delete succesful',
+            text: 'Delete menu ramen succesful...',
+            timer: 2000,
+            showConfirmButton: false,
+          });
         fetchMenuData();
     } catch (error) {
         console.error('Error deleting menu:', error);
-        alert('Error deleting menu');
+        Swal.fire({
+            icon: 'error',
+            title: 'error delete menu',
+            text: 'Error to delete menu ramen.',
+            timer: 2000,
+            showConfirmButton: false,
+          });
     }
 }
 
@@ -167,16 +209,38 @@ document.getElementById('addDataForm').addEventListener('submit', async function
         if (!response.ok) {
             const errorMessage = await response.text();
             console.error('Error:', errorMessage);
-            alert('Failed to add data: ' + errorMessage);
+            Swal.fire({
+                icon: 'error',
+                title: 'error post menu',
+                text: 'Error to post menu ramen.',
+                timer: 2000,
+                showConfirmButton: false,
+              });
             return;
         }
 
-        alert('Data added successfully!');
+        Swal.fire({
+            icon: 'succesful',
+            title: 'succes post menu',
+            text: 'succes to poat menu ramen.',
+            timer: 2000,
+            showConfirmButton: false,
+          });
 
         document.getElementById('addDataForm').reset();
     } catch (error) {
         console.error('Error submitting data:', error);
-        alert('Error submitting data');
+        Swal.fire({
+            icon: 'error',
+            title: 'error submit post menu',
+            text: 'Error submit menu ramen.',
+            timer: 2000,
+            showConfirmButton: false,
+          });
     }
 });
 
+export { updateMenu, deleteMenu, closeUpdateModal };
+window.updateMenu = updateMenu;
+window.deleteMenu = deleteMenu;
+window.closeUpdateModal = closeUpdateModal;
