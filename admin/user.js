@@ -1,3 +1,8 @@
+import Swal from "https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js";
+import {addCSS} from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.0.9/element.js";
+
+// Menambahkan CSS SweetAlert
+addCSS("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
 
 const addUserForm = document.getElementById('addUserForm');
 
@@ -28,17 +33,35 @@ addUserForm.addEventListener('submit', async (event) => {
 
     if (response.ok) {
       const result = await response.json();
-      alert('User berhasil ditambahkan!');
+      Swal.fire({
+        icon: 'success',
+        title: 'Update succesful',
+        text: 'Updating user succesful...',
+        timer: 2000,
+        showConfirmButton: false,
+      });
       console.log('Success:', result);
       addUserForm.reset(); 
     } else {
       const error = await response.json();
-      alert('Gagal menambahkan user: ' + (error.message || 'Terjadi kesalahan'));
+     Swal.fire({
+                icon: 'error',
+                title: 'error submit data user',
+                text: 'Error add new user.',
+                timer: 2000,
+                showConfirmButton: false,
+              });
       console.error('Error:', error);
     }
   } catch (error) {
     // Tangani error saat proses fetch
-    alert('Terjadi kesalahan: ' + error.message);
+    Swal.fire({
+      icon: 'error',
+      title: 'error submit data user',
+      text: 'Error add new user.',
+      timer: 2000,
+      showConfirmButton: false,
+    });
     console.error('Fetch Error:', error);
   }
 });
