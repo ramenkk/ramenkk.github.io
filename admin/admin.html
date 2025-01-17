@@ -128,71 +128,37 @@
                     <div class="container px-6 py-8 mx-auto">
                         <h3 class="text-3xl font-medium text-gray-700">Dashboard</h3>
         
-                        <div class="flex flex-wrap items-center justify-between mt-4">
-                            <!-- Total Data Card -->
+                        <div class="flex flex-wrap items-center justify-between mt-8">
+                            <!-- Daily Profit -->
                             <div class="w-full sm:w-1/2 lg:w-1/3 mb-4 sm:mb-2">
                                 <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
-                                    <div class="p-3 bg-slate-600 bg-opacity-75 rounded-full">
-                                        <img src="../../img/marker.png" width="28" alt="">
+                                    <div class="p-3 bg-green-600 bg-opacity-75 rounded-full">
+                                        <img src="../../img/daily.png" width="28" alt="">
                                     </div>
                                     <div class="mx-5">
-                                        <h4 id="totalLoc" class="text-2xl font-semibold text-gray-700">0</h4>
-                                        <div class="text-gray-500">Data </div>
+                                        <h4 id="dailyProfit" class="text-2xl font-semibold text-gray-700">Rp 0</h4>
+                                        <div class="text-gray-500">Keuntungan Harian</div>
                                     </div>
                                 </div>
                             </div>
                         
-                            <!-- Search Bar -->
-                            <form class="w-full sm:w-1/2 lg:w-1/3 mb-4 sm:mb-0">
-                                <label for="searchBar" class="sr-only">Search</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 10a7 7 0 1 0-7 7 7 7 0 0 0 7-7Z"/>
-                                        </svg>
+                            <!-- Weekly Profit -->
+                            <div class="w-full sm:w-1/2 lg:w-1/3 mb-4 sm:mb-2">
+                                <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
+                                    <div class="p-3 bg-blue-600 bg-opacity-75 rounded-full">
+                                        <img src="../../img/weekly.png" width="28" alt="">
                                     </div>
-                                    <input type="search" id="searchBar" class="block w-full p-4 pl-12 pr-4 text-gray-900 rounded-lg shadow-sm transition focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Search anything..." required />
+                                    <div class="mx-5">
+                                        <h4 id="weeklyProfit" class="text-2xl font-semibold text-gray-700">Rp 0</h4>
+                                        <div class="text-gray-500">Keuntungan Mingguan</div>
+                                    </div>
                                 </div>
-                            </form>
-                        </div>                                                                     
-                       
-                        <!-- Tambahkan elemen untuk form update -->
-                        <div id="updateFormContainer" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-                            <div class="bg-white p-6 rounded-md shadow-lg w-full max-w-md">
-                                <h2 class="text-xl font-bold mb-4">Update Data Lokasi</h2>
-                                <form id="updateForm">
-                                    <input type="hidden" id="updateId">
-                                    <div class="mb-4">
-                                        <label for="updateNamaTempat" class="block text-sm font-medium text-gray-700">Nama Tempat</label>
-                                        <input type="text" id="updateNamaTempat" class="mt-1 block w-full px-3 py-2 border rounded-md">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="updateLokasi" class="block text-sm font-medium text-gray-700">Lokasi</label>
-                                        <input type="text" id="updateLokasi" class="mt-1 block w-full px-3 py-2 border rounded-md">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="updateFasilitas" class="block text-sm font-medium text-gray-700">Fasilitas</label>
-                                        <input type="text" id="updateFasilitas" class="mt-1 block w-full px-3 py-2 border rounded-md">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="updateLon" class="block text-sm font-medium text-gray-700">Longitude</label>
-                                        <input type="number" step="any" id="updateLon" class="mt-1 block w-full px-3 py-2 border rounded-md">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="updateLat" class="block text-sm font-medium text-gray-700">Latitude</label>
-                                        <input type="number" step="any" id="updateLat" class="mt-1 block w-full px-3 py-2 border rounded-md">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="updateGambar" class="block text-sm font-medium text-gray-700">Gambar</label>
-                                        <input type="file" id="updateGambar" name="img" class="mt-1 block w-full px-3 py-2 border rounded-md" accept="image/*" required"> 
-                                    </div>
-                                    <div class="flex justify-end space-x-2">
-                                        <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-md" onclick="closeUpdateForm()">Cancel</button>
-                                        <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md">Update</button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
+                        
+                                                                                        
+                       
+                      
 
                    
 
