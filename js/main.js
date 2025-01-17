@@ -1,3 +1,4 @@
+
 // Ambil daftar menu ramen dari API
 fetchMenuRamen();
 
@@ -71,7 +72,7 @@ function addToCart(item) {
     console.log('Item ditambahkan ke keranjang:', item);
     // Tambahkan logika untuk menyimpan item ke keranjang jika diperlukan
 }
-
+addToCart();
 // Tambahkan event listener untuk tombol filter kategori
 function addCategoryFilter(menuData) {
     const categoryButtons = document.querySelectorAll('[data-category]');
@@ -147,14 +148,27 @@ async function postPemesanan(data) {
         console.log('Pesanan berhasil dikirim:', result);
 
         // Tampilkan pesan sukses
-        alert('Pesanan Anda berhasil dikirim!');
+        Swal.fire({
+            icon: 'success',
+            title: 'Update succesful',
+            text: 'Updating user succesful...',
+            timer: 2000,
+            showConfirmButton: false,
+          });
         // Reset keranjang dan form setelah sukses
         cartItems = [];
         updateCartDisplay();
     } catch (error) {
         console.error('Error saat mengirim pesanan:', error);
-        alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
+        Swal.fire({
+                   icon: 'error',
+                   title: 'error add data',
+                   text: 'error add data pesanan. ' +error,
+                   timer: 2000,
+                   showConfirmButton: false,
+    });
     }
 }
+
 
 

@@ -14,7 +14,7 @@ function addToCart(item) {
         item.quantity = 1; // Set jumlah awal item ke 1
         item.subtotal = item.harga * item.quantity; // Hitung subtotal untuk item pertama
         cartItems.push(item); // Tambah item ke keranjang
-    }
+    }   
 
     updateCartDisplay();
    
