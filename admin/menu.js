@@ -1,7 +1,6 @@
 import Swal from "https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js";
 import {addCSS} from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.0.9/element.js";
 
-// Menambahkan CSS SweetAlert
 addCSS("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
 
 async function fetchMenuData() {
@@ -70,7 +69,7 @@ document.getElementById('updateForm').addEventListener('submit', async function 
 
     // Pastikan kita mengirimkan ID yang benar
     const updatedData = {
-        id: id,         // Menggunakan id sesuai dengan MongoDB
+        id: id,        
         nama_menu,
         harga,
         deskripsi,
@@ -194,6 +193,7 @@ async function deleteMenu(id) {
 }
 
 
+
 document.getElementById('addDataForm').addEventListener('submit', async function(event) {
     event.preventDefault(); 
 
@@ -256,7 +256,37 @@ document.getElementById('addDataForm').addEventListener('submit', async function
     }
 });
 
+
+
 export { updateMenu, deleteMenu, closeUpdateModal };
 window.updateMenu = updateMenu;
 window.deleteMenu = deleteMenu;
 window.closeUpdateModal = closeUpdateModal;
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    function filterMenuData() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        const tableRows = document.querySelectorAll('#dataDisplayTable tbody tr');
+
+        tableRows.forEach(row => {
+            const namaMenu = row.cells[0].textContent.toLowerCase();
+            const harga = row.cells[1].textContent.toLowerCase();
+            const deskripsi = row.cells[2].textContent.toLowerCase();
+            const kategori = row.cells[4].textContent.toLowerCase();
+
+            if (
+                namaMenu.includes(searchInput) || 
+                harga.includes(searchInput) || 
+                deskripsi.includes(searchInput) || 
+                kategori.includes(searchInput)
+            ) {
+                row.style.display = ''; // Tampilkan baris
+            } else {
+                row.style.display = 'none'; // Sembunyikan baris
+            }
+        });
+    }
+
+    window.filterMenuData = filterMenuData;
+});
