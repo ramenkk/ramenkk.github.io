@@ -126,13 +126,29 @@ document.getElementById('updateForm').addEventListener('submit', async function 
 // delete menu ramen
 async function deleteMenu(id) {
     if (!id) {
-        alert('Invalid ID');
+        Swal.fire({
+            icon: 'error',
+            title: 'Invalid ID',
+            text: 'The menu ID is not valid.',
+            timer: 2000,
+            showConfirmButton: false,
+        });
         return; 
     }
 
-    const confirmed = confirm('Are you sure you want to delete this menu item?');
-    if (!confirmed) {
-        return; 
+    const confirmed = await Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you really want to delete this menu item?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+    });
+
+    if (!confirmed.isConfirmed) {
+        return; // User canceled the operation
     }
 
     try {
@@ -149,37 +165,37 @@ async function deleteMenu(id) {
             console.error('Delete failed:', errorMessage);
             Swal.fire({
                 icon: 'error',
-                title: 'error delete menu',
-                text: 'Error to delete menu ramen.',
+                title: 'Error Deleting Menu',
+                text: 'Failed to delete the menu item.',
                 timer: 2000,
                 showConfirmButton: false,
-              });
+            });
             return;
         }
 
         Swal.fire({
             icon: 'success',
-            title: 'Delete succesful',
-            text: 'Delete menu ramen succesful...',
+            title: 'Deleted!',
+            text: 'The menu item has been deleted.',
             timer: 2000,
             showConfirmButton: false,
-          });
-        fetchMenuData();
+        });
+        fetchMenuData(); // Refresh table data
     } catch (error) {
         console.error('Error deleting menu:', error);
         Swal.fire({
             icon: 'error',
-            title: 'error delete menu',
-            text: 'Error to delete menu ramen.',
+            title: 'Error',
+            text: 'An error occurred while deleting the menu.',
             timer: 2000,
             showConfirmButton: false,
-          });
+        });
     }
 }
 
 
 document.getElementById('addDataForm').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Mencegah pengiriman form secara default
+    event.preventDefault(); 
 
     // Ambil data dari form
     const nama_menu = document.getElementById('nama_menu').value;

@@ -1,7 +1,6 @@
 // Contoh URL API, ganti dengan endpoint API Anda
 const apiUrl = 'https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/pesanan';
 
-// Fungsi untuk menghitung keuntungan harian dan mingguan
 async function calculateProfit() {
     try {
         // Fetch data dari API
@@ -13,7 +12,7 @@ async function calculateProfit() {
         // Ambil respons mentah
         const responseText = await response.text();
 
-        // Validasi dan bersihkan data JSON
+     
         const jsonData = responseText.trim().match(/^\[.*\]$/)
             ? JSON.parse(responseText.trim())
             : JSON.parse(responseText.trim().replace(/^[^{[]+|[^}\]]+$/g, ''));
