@@ -193,7 +193,6 @@ async function deleteMenu(id) {
 }
 
 
-
 document.getElementById('addDataForm').addEventListener('submit', async function(event) {
     event.preventDefault(); 
 
@@ -227,35 +226,36 @@ document.getElementById('addDataForm').addEventListener('submit', async function
             console.error('Error:', errorMessage);
             Swal.fire({
                 icon: 'error',
-                title: 'error post menu',
-                text: 'Error to post menu ramen.',
+                title: 'Error posting menu',
+                text: 'Error posting menu ramen.',
                 timer: 2000,
                 showConfirmButton: false,
-              });
+            });
             return;
         }
 
         Swal.fire({
-            icon: 'succesful',
-            title: 'succes post menu',
-            text: 'succes to poat menu ramen.',
+            icon: 'success',
+            title: 'Success posting menu',
+            text: 'Success to post menu ramen.',
             timer: 2000,
             showConfirmButton: false,
-          });
+        }).then(() => {
+            location.reload();  // Refresh the page after success
+        });
 
         document.getElementById('addDataForm').reset();
     } catch (error) {
         console.error('Error submitting data:', error);
         Swal.fire({
             icon: 'error',
-            title: 'error submit post menu',
-            text: 'Error submit menu ramen.',
+            title: 'Error submitting post menu',
+            text: 'Error submitting menu ramen.',
             timer: 2000,
             showConfirmButton: false,
-          });
+        });
     }
 });
-
 
 
 export { updateMenu, deleteMenu, closeUpdateModal };
