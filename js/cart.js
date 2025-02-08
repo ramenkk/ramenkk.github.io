@@ -1,23 +1,17 @@
-// Simpan item keranjang dalam array
 let cartItems = [];
 
-// Fungsi untuk menambahkan item ke keranjang
 function addToCart(item) {
-    // Cek jika item sudah ada di keranjang
     const itemIndex = cartItems.findIndex(cartItem => cartItem.id === item.id);
     if (itemIndex > -1) {
-        // Update jumlah item
         cartItems[itemIndex].quantity += 1;
-        // Update subtotal berdasarkan jumlah baru
         cartItems[itemIndex].subtotal = cartItems[itemIndex].harga * cartItems[itemIndex].quantity;
     } else {
-        item.quantity = 1; // Set jumlah awal item ke 1
-        item.subtotal = item.harga * item.quantity; // Hitung subtotal untuk item pertama
-        cartItems.push(item); // Tambah item ke keranjang
-    }   
+        item.quantity = 1;
+        item.subtotal = item.harga * item.quantity;
+        cartItems.push(item);
+    }
 
     updateCartDisplay();
-   
     toggleCartModal(true);
 }
 
@@ -60,9 +54,8 @@ function updateCartDisplay() {
     const cartItemsContainer = document.getElementById('cartItems');
     const totalPriceElement = document.getElementById('totalPrice');
     
-    cartItemsContainer.innerHTML = ''; // Kosongkan isi keranjang
+    cartItemsContainer.innerHTML = '';
 
-    // Jika keranjang kosong, tampilkan pesan
     if (cartItems.length === 0) {
         cartItemsContainer.innerHTML = `<p class="text-center text-gray-500">Keranjang Anda kosong.</p>`;
     } else {
@@ -82,7 +75,6 @@ function updateCartDisplay() {
         });
     }
 
-    // Update total harga
     totalPriceElement.textContent = `Total: Rp ${calculateTotalPrice().toLocaleString('id-ID')}`;
 }
 
@@ -97,7 +89,6 @@ function toggleCartModal(show) {
     }
 }
 
-// Fungsi untuk menutup modal keranjang
 document.getElementById('closeCart').addEventListener('click', () => {
     toggleCartModal(false);
 });
@@ -107,21 +98,19 @@ document.getElementById('closeCart').addEventListener('click', () => {
 // Fungsi untuk merender menu
 function renderMenu(data) {
     const restoContainer = document.getElementById('resto');
-    restoContainer.innerHTML = ''; // Clear the container before rendering new menu
+    restoContainer.innerHTML = '';
 
     data.forEach(menu => {
         const col = document.createElement('div');
-        col.className = 'col-12 col-sm-6 col-md-4'; // Responsive grid columns
+        col.className = 'col-12 col-sm-6 col-md-4';
 
         const card = document.createElement('div');
         card.className = 'card shadow-lg rounded-xl overflow-hidden mb-4';
 
-        // Use default values for fields if they're missing
         const deskripsi = menu.deskripsi || "Tidak ada deskripsi tersedia.";
         const gambar = menu.gambar || 'path/to/default/image.jpg';
         const harga = menu.harga ? `Rp ${menu.harga.toLocaleString('id-ID')}` : "Harga tidak tersedia.";
 
-        // Build the card content
         card.innerHTML = `
             <img src="${gambar}" alt="${menu.nama_menu}" class="w-full h-48 object-cover">
             <div class="p-4">
@@ -130,17 +119,14 @@ function renderMenu(data) {
                 <div class="flex justify-between items-center">
                     <span class="text-lg font-bold text-blue-500">${harga}</span>
                     <button class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm rounded-lg shadow-md hover:bg-blue-600 transition" 
-                        onclick="addToCart({ id: '${menu.id}', nama_menu: '${menu.nama_menu}', harga: ${menu.harga} })">
+                        onclick="showMenuDetail(${JSON.stringify(menu).replace(/"/g, '&quot;')})">
                         Pesan
                     </button>
                 </div>
             </div>
         `;
 
-        // Append the card to the column, then append the column to the container
         col.appendChild(card);
         restoContainer.appendChild(col);
     });
 }
-
-

@@ -28,45 +28,38 @@ function fetchMenuRamen() {
 // Fungsi untuk merender daftar menu
 function renderMenu(data) {
     const restoContainer = document.getElementById('resto');
-    restoContainer.innerHTML = ''; // Bersihkan kontainer sebelum merender menu baru
+    restoContainer.innerHTML = '';
 
-    data.forEach(menuramen => {
+    data.forEach(menu => {
         const col = document.createElement('div');
-        col.className = 'col-12 col-sm-6 col-md-4'; // Kolom grid responsif
+        col.className = 'col-12 col-sm-6 col-md-4';
 
         const card = document.createElement('div');
         card.className = 'card shadow-lg rounded-xl overflow-hidden mb-4';
 
-        // Gunakan nilai default jika field tidak tersedia
-        const deskripsi = menuramen.deskripsi || 'Tidak ada deskripsi tersedia.';
-        const gambar = menuramen.gambar || 'path/to/default/image.jpg';
-        const harga = menuramen.harga ? `Rp ${menuramen.harga.toLocaleString('id-ID')}` : 'Harga tidak tersedia.';
+        const deskripsi = menu.deskripsi || "Tidak ada deskripsi tersedia.";
+        const gambar = menu.gambar || 'path/to/default/image.jpg';
+        const harga = menu.harga ? `Rp ${menu.harga.toLocaleString('id-ID')}` : "Harga tidak tersedia.";
 
-        // Buat konten kartu menu
         card.innerHTML = `
-            <img src="${gambar}" alt="${menuramen.nama_menu}" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">${menuramen.nama_menu}</h3>
-                    <p class="text-sm text-gray-600 mb-3">${deskripsi}</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-lg font-bold text-blue-500">${harga}</span>
-                        <button class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm rounded-lg shadow-md hover:bg-blue-600 transition" 
-                            onclick="addToCart({ 
-                                id: '${menuramen.id}', 
-                                nama_menu: '${menuramen.nama_menu}', 
-                                harga_satuan: ${menuramen.harga} 
-                            })">
-                            Pesan
-                        </button>
-                    </div>
+            <img src="${gambar}" alt="${menu.nama_menu}" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">${menu.nama_menu}</h3>
+                <p class="text-sm text-gray-600 mb-3">${deskripsi}</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-lg font-bold text-blue-500">${harga}</span>
+                    <button class="mt-4 px-4 py-2 bg-blue-500 text-white text-sm rounded-lg shadow-md hover:bg-blue-600 transition" 
+                        onclick="showMenuDetail(${JSON.stringify(menu).replace(/"/g, '&quot;')})">
+                        Pesan
+                    </button>
                 </div>
+            </div>
         `;
-       
+
         col.appendChild(card);
         restoContainer.appendChild(col);
     });
 }
-
 // Fungsi untuk menambahkan item ke keranjang
 function addToCart(item) {
     console.log('Item ditambahkan ke keranjang:', item);
@@ -87,8 +80,18 @@ function addCategoryFilter(menuData) {
     });
 }
 
+// Tambahkan event listener untuk tombol "Add More Menu"
+document.getElementById('addMoreMenu').addEventListener('click', () => {
+    toggleCartModal(false); // Tutup modal keranjang
+});
+
 // Fungsi untuk konfirmasi pesanan
 document.getElementById('confirmOrder').addEventListener('click', () => {
+    if (cartItems.length === 0) {
+        alert('Keranjang Anda kosong. Silakan pilih menu terlebih dahulu.');
+        return;
+    }
+
     const customerName = document.getElementById('customerName').value.trim();
     const orderNote = document.getElementById('orderNote').value.trim();
     let seatNumber = document.getElementById('seatNumber').value.trim();
@@ -103,7 +106,7 @@ document.getElementById('confirmOrder').addEventListener('click', () => {
         return;
     }
 
-    seatNumber = parseInt(seatNumber, 10);  // Mengonversi seatNumber ke tipe integer
+    seatNumber = parseInt(seatNumber, 10);
 
     const daftarMenu = cartItems.map(item => ({
         menu_id: item.id,
@@ -113,19 +116,17 @@ document.getElementById('confirmOrder').addEventListener('click', () => {
         subtotal: item.subtotal
     }));
 
-    const totalHarga = calculateTotalPrice();  // Menghitung total harga seluruh pesanan
+    const totalHarga = calculateTotalPrice();
 
     const orderData = {
         nama_pelanggan: customerName,
         catatan_pesanan: orderNote,
-        nomor_meja: seatNumber,  // Pastikan seatNumber sudah berupa integer
+        nomor_meja: seatNumber,
         daftar_menu: daftarMenu,
         total_harga: totalHarga
     };
 
-    console.log('Data yang akan dikirim:', orderData);  // Tambahkan log untuk memeriksa data sebelum dikirim
-
-    // Panggil fungsi untuk mengirim data ke server
+    console.log('Data yang akan dikirim:', orderData);
     postPemesanan(orderData);
 });
 
@@ -147,28 +148,56 @@ async function postPemesanan(data) {
         const result = await response.json();
         console.log('Pesanan berhasil dikirim:', result);
 
-        // Tampilkan pesan sukses
         Swal.fire({
             icon: 'success',
-            title: 'Update succesful',
-            text: 'Updating user succesful...',
+            title: 'Pesanan berhasil',
+            text: 'Pesanan berhasil dikirim...',
             timer: 2000,
             showConfirmButton: false,
-          });
+        });
+
         // Reset keranjang dan form setelah sukses
         cartItems = [];
         updateCartDisplay();
+        toggleCartModal(false);
     } catch (error) {
         console.error('Error saat mengirim pesanan:', error);
         Swal.fire({
-                   icon: 'error',
-                   title: 'error add data',
-                   text: 'error add data pesanan. ' +error,
-                   timer: 2000,
-                   showConfirmButton: false,
-    });
+            icon: 'error',
+            title: 'Gagal mengirim pesanan',
+            text: 'Terjadi kesalahan saat mengirim pesanan. ' + error,
+            timer: 2000,
+            showConfirmButton: false,
+        });
     }
 }
 
+// Fungsi untuk menampilkan detail menu
+function showMenuDetail(menu) {
+    const menuDetailModal = document.getElementById('menuDetailModal');
+    const menuDetailTitle = document.getElementById('menuDetailTitle');
+    const menuDetailImage = document.getElementById('menuDetailImage');
+    const menuDetailDescription = document.getElementById('menuDetailDescription');
+    const menuDetailPrice = document.getElementById('menuDetailPrice');
 
+    // Isi detail menu ke dalam modal
+    menuDetailTitle.textContent = menu.nama_menu;
+    menuDetailImage.src = menu.gambar || 'path/to/default/image.jpg';
+    menuDetailDescription.textContent = menu.deskripsi || 'Tidak ada deskripsi tersedia.';
+    menuDetailPrice.textContent = menu.harga ? `Rp ${menu.harga.toLocaleString('id-ID')}` : 'Harga tidak tersedia.';
 
+    // Tampilkan modal
+    menuDetailModal.classList.remove('hidden');
+
+    // Tambahkan event listener untuk tombol "Order"
+    document.getElementById('orderButton').onclick = () => {
+        addToCart(menu); // Tambahkan menu ke keranjang
+        menuDetailModal.classList.add('hidden'); // Sembunyikan modal detail
+        toggleCartModal(true); // Tampilkan modal keranjang
+    };
+
+    // Tambahkan event listener untuk tombol "Tutup"
+    document.getElementById('closeMenuDetail').onclick = () => {
+        menuDetailModal.classList.add('hidden');
+    };
+}
