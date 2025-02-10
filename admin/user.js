@@ -1,6 +1,10 @@
 import Swal from "https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js";
 import {addCSS} from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.0.9/element.js";
 
+
+// user.js
+
+
 // Menambahkan CSS SweetAlert
 addCSS("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
 
@@ -108,8 +112,4 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
       }
     }
-  
-    // Panggil fungsi fetch saat halaman dimuat
-    fetchActivities();
-  });
-  
+});
