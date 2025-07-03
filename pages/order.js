@@ -1,4 +1,4 @@
-const apiUrl = 'https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/pesanan';
+const apiUrl = 'https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/pesanan';
 
 // Fungsi untuk memuat data ke dalam tabel berdasarkan pencarian
 async function loadTableData(searchQuery = '') {

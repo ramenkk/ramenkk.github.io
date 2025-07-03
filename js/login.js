@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Fungsi Login
   async function login(username, password) {
     try {
-      const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/admin/login', {
+      const response = await fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/admin/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

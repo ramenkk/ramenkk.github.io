@@ -27,7 +27,7 @@ addUserForm.addEventListener('submit', async (event) => {
 
   try {
 
-    const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/admin/register', {
+    const response = await fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/admin/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json' 
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchActivities() {
       try {
         const response = await fetch(
-          "https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/activity"
+          "https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/activity"
         );
   
         if (!response.ok) {

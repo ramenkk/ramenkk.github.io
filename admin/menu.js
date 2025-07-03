@@ -5,7 +5,7 @@ addCSS("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
 
 async function fetchMenuData() {
     try {
-        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/menu_ramen');
+        const response = await fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/menu_ramen');
         const data = await response.json();
 
         console.log('Fetched data:', data); 
@@ -78,7 +78,7 @@ document.getElementById('updateForm').addEventListener('submit', async function 
     };
 
     try {
-        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/ubah/menu_ramen', {
+        const response = await fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/ubah/menu_ramen', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ async function deleteMenu(id) {
     }
 
     try {
-        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/hapus/menu_ramen', {
+        const response = await fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/hapus/menu_ramen', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -213,7 +213,7 @@ document.getElementById('addDataForm').addEventListener('submit', async function
     };
 
     try {
-        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/tambah/menu_ramen', {
+        const response = await fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/tambah/menu_ramen', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json', 

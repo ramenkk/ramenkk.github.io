@@ -4,7 +4,7 @@ fetchMenuRamen();
 
 // Fungsi untuk mengambil daftar menu ramen
 function fetchMenuRamen() {
-    fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/menu_ramen')
+    fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/menu_ramen')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Gagal mengambil menu.');
@@ -133,7 +133,7 @@ document.getElementById('confirmOrder').addEventListener('click', () => {
 // Fungsi untuk mengirim data pesanan ke server
 async function postPemesanan(data) {
     try {
-        const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/tambah/pesanan', {
+        const response = await fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/tambah/pesanan', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

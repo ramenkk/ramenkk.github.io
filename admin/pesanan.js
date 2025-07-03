@@ -1,5 +1,5 @@
 // Contoh URL API, ganti dengan endpoint API Anda
-const apiUrl = 'https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/pesanan';
+const apiUrl = 'https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/pesanan';
 
 // Fungsi untuk memuat data ke dalam tabel
 async function loadTableData() {

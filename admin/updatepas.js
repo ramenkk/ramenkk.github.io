@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchAdminData() {
-    fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/admin')
+    fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/admin')
         .then(response => response.json())
         .then(data => {
             const tableBody = document.querySelector('#adminTable tbody');
@@ -55,7 +55,7 @@ function updatePassword(username) {
     }).then((result) => {
         if (result.isConfirmed) {
             const newPassword = result.value;
-            fetch(`https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/update/password`, {
+            fetch(`https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/update/password`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ addUserForm.addEventListener('submit', async (event) => {
 
   try {
 
-    const response = await fetch('https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/admin/register', {
+    const response = await fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/admin/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json' 
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchActivities() {
       try {
         const response = await fetch(
-          "https://asia-southeast2-menurestoran-443909.cloudfunctions.net/menurestoran/data/activity"
+          "https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/activity"
         );
   
         if (!response.ok) {
