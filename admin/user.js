@@ -27,7 +27,7 @@ addUserForm.addEventListener('submit', async (event) => {
 
   try {
 
-    const response = await fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/admin/register', {
+    const response = await fetch('https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/admin/registers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json' 
