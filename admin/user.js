@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchActivities() {
       try {
         const response = await fetch(
-          "https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/activity"
+          "https://asia-southeast2-awangga.cloudfunctions.net/parkirgratis/data/activitys"
         );
   
         if (!response.ok) {
